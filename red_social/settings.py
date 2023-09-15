@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'social.apps.SocialConfig',
     'django.contrib.admin',
     'django.contrib.humanize',
     'django.contrib.auth',
@@ -39,8 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social'
+    'chat',
+
+    
 ]
+
+ASGI_APPLICATION = "mysite.asgi.application"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

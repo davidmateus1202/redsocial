@@ -1,18 +1,23 @@
 {% extends 'social/layout.html' %}
 {% load humanize %}
+{% load static %}
 {% block content %}
 
 {% for post in posts %}
-    <article>
+    <article class="posts_feed">
         <div class="container-article">
-            <img src="{{ post.user.profile.image.url }}">
+            <img id="imagen_perfil" src="{{ post.user.profile.image.url }}">
             <div>
-                <h2 class="username"><a href="#">{{post.user.username}}</a></h2>
+                <h2 class="username"><a href="{% url 'profile' post.user.username %}">{{post.user.username}}</a></h2>
                 <i class="clock"></i>
                 <time data-time="#">{{post.time|naturaltime}}</time>
                 <div class="post">{{post.content}}</div>
             </div>
         </div>
+        {% if post.image.url != null %}
+            <img id="imagen_post" src="{{ post.image.url}}" >
+        {% endif %}
+        
     </article>
 
 {% endfor %}
