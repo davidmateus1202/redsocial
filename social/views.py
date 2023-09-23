@@ -1,9 +1,12 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegisterForm, PostForm
+from django.contrib.auth.decorators import login_required
+from chat import models
 
 def feed(request):
     posts = Post.objects.all()
@@ -81,10 +84,6 @@ def buscar_perfil(request, username = None):
 
 
 
-
-
-
-
 def profile(request, username = None):
     current_user = request.user
     if username and username != current_user:
@@ -98,3 +97,4 @@ def profile(request, username = None):
         'user':user
     }
     return render(request, 'social/profile.html', context)
+

@@ -26,13 +26,14 @@ SECRET_KEY = 'django-insecure-g*52r14_%pd(97md)i4)4+@f3d^s2hw8%e_$ntc8k-wj@b4%)2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.13.128.205','127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'channels',
+    'daphne',
     'social.apps.SocialConfig',
     'django.contrib.admin',
     'django.contrib.humanize',
@@ -41,12 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chat',
+    'chat'
 
     
 ]
 
-ASGI_APPLICATION = "mysite.asgi.application"
+ASGI_APPLICATION = "red_social.routing.application"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'red_social.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,6 +84,7 @@ WSGI_APPLICATION = 'red_social.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
+<<<<<<< HEAD
         'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'redsocial',
@@ -90,8 +92,19 @@ DATABASES = {
         'PASSWORD': '123456', 
         'HOST': 'localhost',
         'PORT': '5432',
+=======
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':'red_social3',
+        'USER':'postgres',
+        'PASSWORD':'12345678',
+        'HOST':'localhost',
+        'PORT':'5432'
+
+>>>>>>> 1ed19bc36d0e0bb588ef42e46c5ae47a3b1f8327
     }
 }
+
 
 
 # Password validation
@@ -129,6 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -138,6 +152,17 @@ LOGIN_REDIRECT_URL = 'feed'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+
+#configuracion base para el uso de channels - redis
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
+}
 
 
