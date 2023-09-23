@@ -21,6 +21,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('social.url') ),
-    path('chat/', include('chat.url') )
+    path('chat/', include('chat.url')),
 
 ]

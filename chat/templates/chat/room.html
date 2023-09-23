@@ -1,0 +1,127 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<style>
+
+
+    body, html, .container{
+        width: 100%;
+    }
+
+    #boxMsj{
+        overflow-y: auto;
+        font-size: 15px;
+    }
+    #user{
+        font-style: italic;
+    
+    }
+    #bMessage{
+        background: #9833FF;
+    }
+
+    .alert-success{
+        overflow-y: auto;
+        margin-left: 20%;
+        color: white;
+        background: #9833FF;
+        border-radius: 15px;
+        border-radius: none;
+    }
+    .alert-warning{
+        background: white;
+        border: solid 0.1px #9833FF;
+        margin-right: 20%;
+        border-radius: 15px;
+    }
+
+
+
+
+
+</style>
+
+<div id="chat" class="container">
+    <div id="boxinfo">
+        <small>Usuario</small>
+
+    </div>
+
+    <div id="boxMsj">
+
+    </div >
+
+    <input type="text" name="" id="message" class="form-control">
+    <input type="submit" value="Enviar" id="bMessage" class="mt-1 btn btn-success">
+</div>
+
+<script>
+    window.onload = function () {
+
+        var user = '{{ request.user }}'
+
+        document.querySelector("#bMessage").addEventListener("click", sendMsj)
+        document.querySelector("#message").addEventListener("keypress", function (e) {
+            if (e.keyCode == 13) {
+                sendMsj()
+            }
+        })
+
+        function sendMsj() {
+            message = document.querySelector("#message")
+
+            //verificamos si el mensaje es diferente de vacio para enviarlo
+
+            if (message.value.trim() !== "") {
+                chatSocket.send(JSON.stringify({ 'message': message.value.trim() }))
+                message.value = ""
+            }
+        }
+
+        // cargamos el servidor y obtenemos su dereccion para conectar al cliente con el servidor
+        var url = 'ws://' + window.location.host + '/ws/chat/room/{{ room.id }}'
+        var chatSocket = new WebSocket(url)
+        chatSocket.onopen = function (e) {
+            console.log("WS abierto")
+        }
+  
+
+        chatSocket.onmessage = function (data) {
+
+            //muestro el mensaje en pantalla con .innerHTML y para sumar el mensaje siguiente sumo msj.message
+        
+
+            var data = JSON.parse(data.data)
+            msj = data.message
+            username = data.username
+            datetime = data.datetime
+            
+            var customClassMsj = "alert-success"
+            if (user != username){
+                customClassMsj = "alert-warning"
+
+            }
+            
+            document.querySelector("#boxMsj").innerHTML +=
+            `
+
+                <div class="alert ${customClassMsj}">
+                    ${msj}
+                    <div>
+                        <small >${username}</small>
+                        <small >${datetime}</small>
+                    </div>
+                </div>
+            `
+        }
+
+        chatSocket.onclose = function (e) {
+            console.log("Cerrada la conexión")
+        }
+
+
+    }
+</script>
+
+{% endblock %}

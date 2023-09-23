@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% load humanize %}
+{% load static %}
+<html>
+
+<head>
+	<title>Red Social</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	
+</head>
+
+<body>
+
+	<header class="main-head">
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+			{% if request.user.is_authenticated %}
+					<h1 id="logo">Hola {{ user.username }}</h1>
+					<form id="formulario" method="GET" action="{% url 'buscar_perfil' %}">
+						<div class="input-group flex-nowrap">
+						
+							<span class="input-group-text" id="addon-wrapping">@</span>
+							<input  type="text" class="form-control" name="username" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+						
+						</div>
+					</form>
+				<div class="container-fluid">
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0" id="menu_inicio">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="" id="Iniciar_sesion">Iniciar sesion</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="" id="registro">Registrarse</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'logout' %}" id="cerrar">Cerrar sesion</a>
+						</li>
+						</ul>
+
+					</div>
+				</div>
+			{% else %}
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0" id="menu_inicio">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{% url 'loguin' %}" id="Iniciar_sesion">Iniciar sesion</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'register' %}" id="registro">Registrarse</a>
+					</li>
+					</ul>
+				</div>
+			</div>
+					
+			{% endif %}
+
+		  </nav>
+	</header>
+
+	<!-------------------------------------
+					Messages 
+	-------------------------------------->
+
+	{% if messages %}
+	{% for message in messages %}
+	<div class="notification {{message.tags}}">
+		{{message}}
+	</div>
+	{% endfor %}
+	{% endif %}
+
+	<!-------------------------------------
+					Navigation Bar 
+	-------------------------------------->
+	<div class="main">
+		{% if request.user.is_authenticated %}
+		<nav class="second-nav">
+			
+			<a class="feed" href="{% url 'feed' %}">
+				<img src="{% static 'images/home.png' %}" alt="Icono">
+				<span class="icon-text">Inicio</span>
+			</a>
+			<a class="new" href="{% url 'profile' %}">
+				<img src="{% static 'images/user.png' %}" alt="Icono">
+				<span class="icon-text">Mi perfi</span>
+			</a>
+			<a class="new" href="{% url 'post' %}">
+				<img src="{% static 'images/post.png' %}" alt="Icono">
+				<span class="icon-text">Nuevo post</span>
+			</a>
+			<a class="sistemchat" href="">
+				<img src="{% static 'images/chat.png' %}" alt="Icono">
+				<span class="icon-text">Chat</span>
+			</a>	
+		</nav>
+		{% endif %}
+
+
+		{% block content %}
+
+		{% endblock content %}
+
+
+</body>
+
+</html>
