@@ -1,32 +1,109 @@
-{% extends 'social/feed.html' %}
+{% extends 'layout.html' %}
+{% load humanize %}
+
 {% block content %}
 
-<!-- Profile -->
-<div class="profile">
-	<img src="{{ user.profile.image.url }}">
-	<a href="">
-		<h2>@{{ user.username }}</h2>
-	</a>
-	<button><a class="follow-button" href="#">Follow</a></button>
-</div>
+<section class="perfil-usuario">
+	<div class="contenedor-perfil">
+		<div class="portada-perfil" style="background-image: url('http://localhost/multimedia/relleno/fondo-9.png');">
+			<div class="sombra"></div>
 
-<!-- Follow items -->
-<div class="follow">
-	<div>
-		<h5>Post</h5>
-		<p>{{ user.posts.count }}</p>
+			<div class="avatar-perfil">
+				<img src="{{ user.profile.image.url }}" id="img">
+				
+			   
+				<div class="avatar-perfil2">
+					<label for="btn-file">Cambiar Foto</label>
+					<input type="file" name="btn-file" id="btn-file">
+					
+					
+				</div>
+			</div>
+
+			<div class="datos-perfil">
+				<h4 class="titulo-usuario">@{{ user.username }}</h4>
+				<ul class="lista-perfil">
+					<li>35 Seguidores</li>
+					<li>7 Seguidos</li>
+					<li>{{ user.posts.count }}</li>
+				</ul>
+			</div>
+			<div class="opcciones-perfil">
+				<button type="">Cambiar portada</button>
+				<button type=""><i class="fas fa-wrench"></i></button>
+			</div>
+		</div>
 	</div>
-	<div>
-		<h5>Followers</h5>
-		<p>0</p>
+</section>
+
+<style>
+	section{
+		margin-bottom: 100px;
+	}
+</style>
+{% for post in posts %}
+<!-------------------------------------------------publicaciones------------------->
+<div class="feeds">
+<!-----------------------------------------------------publicacion 1---------->
+	<div class="feed">
+		<div class="head">
+			<div class="user">
+				<div class="profile-photo">
+					<img src="{{ post.user.profile.image.url }}">
+
+				</div>
+				<div class="ingo">
+					<h3><a href="{% url 'profile' post.user.username %}">{{post.user.username}}</a></h3>
+					<small>{{post.time|naturaltime}}</small>
+					<div class="post">{{post.content}}</div>
+				</div>
+			  
+			</div>
+			<span class="edit">
+				<i class='bx bx-dots-horizontal-rounded'></i>
+			</span>
+
+		</div>
+
+		<div class="photo">
+			{% if post.image.url != null %}
+				<img id="imagen_post" src="{{ post.image.url}}" >
+			{% endif %}
+		</div>
+		<div class="action-buttons">
+			<div class="interaction-buttons">
+				<span><i class='bx bx-heart'></i></span>
+				<span><i class='bx bx-message-rounded-dots'></i></span>
+				<span><i class='bx bx-share bx-flip-horizontal' ></i></span>
+
+			</div>
+			<div class="bookmark">
+				<span><i class='bx bx-bookmark'></i></span>
+			</div>
+
+		</div>
+		<div class="liked-by">
+			<span><img src="./images/profile-10.jpg" ></span>
+			<span><img src="./images/profile-2.jpg" ></span>
+			<span><img src="./images/profile-3.jpg" ></span>
+		   <p>Le gusta a <b>David Mateus</b>y <b>226 personas mas</b></p>
+		</div>
+
+		<div class="caption">
+			<p><b>David Mateus</b> Hermosa vivienda para una familia amplia. <span class="harsh-tag">#ventarapida</span></p>
+		</div>
+		<div class="comments text-muted">
+			150 comentarios
+		</div>
 
 	</div>
-	<div>
-		<h5>Following</h5>
-		<p>0</p>
-	</div>
-</div>
+	<!----------------------fin de feed--------------->
+
+	<!----------------------fin de feed--------------->
 
 
-{{ block.super }}
-{% endblock %}
+{% endfor %}
+
+
+
+{% endblock content %}
