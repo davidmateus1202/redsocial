@@ -3,23 +3,120 @@
 {% load static %}
 {% block content %}
 
-{% for post in posts %}
-    <article class="posts_feed">
-        <div class="container-article">
-            <img id="imagen_perfil" src="{{ post.user.profile.image.url }}">
-            <div>
-                <h2 class="username"><a href="{% url 'profile' post.user.username %}">{{post.user.username}}</a></h2>
-                <i class="clock"></i>
-                <time data-time="#">{{post.time|naturaltime}}</time>
-                <div class="post">{{post.content}}</div>
-            </div>
-        </div>
-        {% if post.image.url != null %}
-            <img id="imagen_post" src="{{ post.image.url}}" >
-        {% endif %}
-        
-    </article>
 
-{% endfor %}
+
+
+    <!---------------------------historias de inicio------------>
+    <div class="stories">
+        <div class="story">
+            <div class="profile-photo">
+                <img src="./images/WhatsApp Image 2023-03-31 at 8.34.45 AM.jpeg">
+            </div>
+            <p class="name">Tu Historia</p>
+
+        </div>
+        <div class="story">
+            <div class="profile-photo">
+                <img src="./images/e1c07fc1-6778-41ad-8d17-16c4f0a3cc54.jpeg">
+            </div>
+            <p class="name">David Mateus</p>
+
+        </div>
+        <div class="story">
+            <div class="profile-photo">
+                <img src="./images/istockphoto-621603944-612x612.jpg">
+            </div>
+            <p class="name">Liliana Mesa</p>
+
+        </div>
+        <div class="story">
+            <div class="profile-photo">
+                <img src="./images/images (1).jpeg">
+            </div>
+            <p class="name">Andres Blanco</p>
+
+        </div>
+        <div class="story">
+            <div class="profile-photo">
+                <img src="./images/pexels-wallace-chuck-2287252.jpg">
+            </div>
+            <p class="name">Fabian Castillo</p>
+
+        </div>
+    </div>
+    <!--------------------------fin de historias-->
+    <form class="create-post">
+        <div class="profile-photo">
+            <img src="{{ post.user.profile.image.url }}">
+        </div>
+        <input type="text" placeholder="¿Que estas pensando hoy Paola?" id="create-post">
+        <input type="submit" value="Post" class="btn btn-primary">
+
+    </form>
+    {% for post in posts %}
+    <!-------------------------------------------------publicaciones------------------->
+    <div class="feeds">
+    <!-----------------------------------------------------publicacion 1---------->
+        <div class="feed">
+            <div class="head">
+                <div class="user">
+                    <div class="profile-photo">
+                        <img src="{{ post.user.profile.image.url }}">
+
+                    </div>
+                    <div class="ingo">
+                        <h3><a href="{% url 'profile' post.user.username %}">{{post.user.username}}</a></h3>
+                        <small>{{post.time|naturaltime}}</small>
+                        <div class="post">{{post.content}}</div>
+                    </div>
+                  
+                </div>
+                <span class="edit">
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                </span>
+
+            </div>
+
+            <div class="photo">
+                {% if post.image.url != null %}
+                    <img id="imagen_post" src="{{ post.image.url}}" >
+                {% endif %}
+            </div>
+            <div class="action-buttons">
+                <div class="interaction-buttons">
+                    <span><i class='bx bx-heart'></i></span>
+                    <span><i class='bx bx-message-rounded-dots'></i></span>
+                    <span><i class='bx bx-share bx-flip-horizontal' ></i></span>
+
+                </div>
+                <div class="bookmark">
+                    <span><i class='bx bx-bookmark'></i></span>
+                </div>
+
+            </div>
+            <div class="liked-by">
+                <span><img src="./images/profile-10.jpg" ></span>
+                <span><img src="./images/profile-2.jpg" ></span>
+                <span><img src="./images/profile-3.jpg" ></span>
+               <p>Le gusta a <b>David Mateus</b>y <b>226 personas mas</b></p>
+            </div>
+
+            <div class="caption">
+                <p><b>David Mateus</b> Hermosa vivienda para una familia amplia. <span class="harsh-tag">#ventarapida</span></p>
+            </div>
+            <div class="comments text-muted">
+                150 comentarios
+            </div>
+
+        </div>
+        <!----------------------fin de feed--------------->
+   
+        <!----------------------fin de feed--------------->
+
+
+    {% endfor %}
+
+
+
 
 {% endblock %}
