@@ -24,7 +24,7 @@ def register(request):
             form.save()
             username = form.cleaned_data['username']
             messages.success(request, f'El usuario {username} ha sido creado exitosamente!')
-            return redirect('feed')
+            return redirect('loguin')
     else:
         form = UserRegisterForm()
     context = {

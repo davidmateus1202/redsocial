@@ -17,10 +17,16 @@ class UserRegisterForm(UserCreationForm):
 class PostForm(forms.ModelForm):
 
     content = forms.CharField(label='', widget=forms.Textarea(attrs={
+        'class':'text',
         'rows':2,
         'placeholder':'¿Que estas pensando hoy?'
     }), required=True)
-
     class Meta:
         model = Post
         fields = ['content', 'image']
+        widgets = {
+            'image': forms.ClearableFileInput(attrs={
+                'class': 'imagen',
+                'rows':2
+                }),
+        }

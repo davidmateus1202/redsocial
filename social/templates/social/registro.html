@@ -1,14 +1,53 @@
-{% extends 'layout.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de usuario</title>
+    <link rel="stylesheet" href="./CSS/loginestilo.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'loginestilo.css' %}">
 
-{% block content %}
+</head>
+<body>
 
-<form class="form" method="post">
+        <main>
+            <div class="contenedor__todo" style="margin-top: 20px;">
+                <div class="caja__trasera">
+                    <div class="caja__trasera-login">
+                        <h3>¿Ya tienes una cuenta?</h3>
+                        <p>Inicia sesion para entrar en la pagina</p>
+                        <button id="btn__iniciarsesion">Iniciar sesion</button>
+                    </div>
+                    <div class="caja__trasera-registrar">
+                        <h3>¿Ya tienes una cuenta?</h3>
+                        <p>Inicia sesion para entrar en la pagina</p>
+                        <button id="btn__iniciarsesion">
+                            <a id="btniniciar" href="{% url 'loguin' %}">Iniciar Sesion</a>
+                        </button>
+                    </div>
+                </div>
 
-    {% csrf_token %}
-    {{form.as_p}}
+                <div class="contenedor__login-registro">
+                    <form class="form formulario__login" method="post">
 
-    <button type="submit" id="submit">Registrarse</button>
+                        <h2>
+                            Registrate
+                        </h2>
 
-</form>
+                        {% csrf_token %}
+                        {{form.as_p}}
+                    
+                        <button type="submit" id="submit">Registrate</button>
+                    
+                    </form>
+                        
+                </div>
 
-{% endblock %}
+            </div>
+
+
+        </main>
+</body>
+</html>

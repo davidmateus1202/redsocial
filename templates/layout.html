@@ -43,13 +43,9 @@
 				<div class="create">
 					{% if not request.user.is_authenticated %}
 
-						<a class="btn btn-primary" href="{% url 'loguin' %}">
-							<label  for="create-post">Iniciar Sesion</label>
-						</a>
+						<a class="btn btn-primary" href="{% url 'loguin' %}">Iniciar Sesion</a>
 					{% else %}
-						<a class="btn btn-primary" href="{% url 'logout' %}">
-							<label  for="create-post">Cerrar sesion</label>
-						</a>
+						<a class="btn btn-primary" href="{% url 'logout' %}">Cerrar Sesion</a>
 						<div class="profile-photo">
 							<a href="{% url 'profile' %}"><img src="{{ user.profile.image.url }}"></a>
 						</div>
@@ -93,9 +89,8 @@
 							</a>
 						</div>
 		
-						<a class="btn btn-primary" href="{% url 'post' %}">
-							<label for="create-post">Crear Post</label>
-						</a>
+						<a class="btn btn-primary" href="{% url 'post' %}">Crear post</a>
+						
 		
 						{% endif %}
 					</div>

@@ -2,10 +2,46 @@
 
 {% block content %}
 
-<form method="post" enctype="multipart/form-data">
+<style>
+    .form-post{
+        width: 100%;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+    }
+
+    .submit{
+        width: 95%;
+        padding: 10px;
+        background: hsl(252, 75%, 60%);
+        color: white;
+        border-radius: 12px;
+    }
+    .text{
+
+        width: 95%;
+        padding: 10px;
+        border-bottom: 1px solid hsl(252, 75%, 60%);
+
+
+    }
+    .imagen{
+        background: hsl(252, 30%, 95%);
+        width: 95%;
+        padding: 10px;
+        border-radius: 12px;
+        margin-top: 10px;
+        justify-content: space-between;
+        border: none;
+
+
+    }
+</style>
+
+<form class="form-post" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Publicar</button>
+    <button class="submit" type="submit">Publicar</button>
 </form>
 
 {% endblock %}
