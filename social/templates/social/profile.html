@@ -23,14 +23,23 @@
 			<div class="datos-perfil">
 				<h4 class="titulo-usuario">@{{ user.username }}</h4>
 				<ul class="lista-perfil">
-					<li>35 Seguidores</li>
-					<li>7 Seguidos</li>
-					<li>{{ user.posts.count }}</li>
+					<li>Seguidores <p>{{ user.profile.followers.count }}</p></li>
+					<li>Seguidos <p>{{ user.profile.following.count }}</p></li>
+					<li>publicaciones {{ user.posts.count }}</li>
 				</ul>
 			</div>
 			<div class="opcciones-perfil">
 				<button type="">Cambiar portada</button>
 				<button type=""><i class="fas fa-wrench"></i></button>
+				{% if request.user.is_authenticated %}
+						{% if user.username != request.user.username %}
+							{% if user not in request.user.profile.following %}
+							<button><a class="follow-button" href="{% url 'follow' user %}">Follow</a></button>
+							{% else %}
+							<button><a class="follow-button" href="{% url 'unfollow' user %}">Unollow</a></button>
+							{% endif %}
+						{% endif %}
+				{% endif %}
 			</div>
 		</div>
 	</div>

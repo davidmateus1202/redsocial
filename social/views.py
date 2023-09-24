@@ -31,7 +31,7 @@ def register(request):
         'form':form
     }
     return render(request, 'social/registro.html', context)
-
+@login_required
 def post(request):
     current_user = get_object_or_404(User, pk = request.user.pk)
     if request.method == 'POST':
@@ -98,3 +98,24 @@ def profile(request, username = None):
     }
     return render(request, 'social/profile.html', context)
 
+def follow(request, username):
+    current_user = request.user
+    to_user = User.objects.get(username = username)
+    to_user_id = to_user
+    rel = Relationship(from_user=current_user, to_user=to_user_id)
+    rel.save()
+    messages.success(request, f'sigues a {username}')
+    return redirect('feed')
+
+def unfollow(request, username):
+    current_user = request.user
+    to_user = User.objects.get(username = username)
+    to_user_id = to_user
+    rel = Relationship.objects.filter(
+    from_user=current_user, to_user=to_user_id
+    ).first()
+
+    if rel:
+        rel.delete()
+        messages.success(request, f'ya no sigues a {username}')
+    return redirect('feed')
