@@ -84,7 +84,6 @@ WSGI_APPLICATION = 'red_social.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-<<<<<<< HEAD
         'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'redsocial',
@@ -92,19 +91,9 @@ DATABASES = {
         'PASSWORD': '123456', 
         'HOST': 'localhost',
         'PORT': '5432',
-=======
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'red_social3',
-        'USER':'postgres',
-        'PASSWORD':'12345678',
-        'HOST':'localhost',
-        'PORT':'5432'
 
->>>>>>> 1ed19bc36d0e0bb588ef42e46c5ae47a3b1f8327
-    }
 }
-
+}
 
 
 # Password validation
