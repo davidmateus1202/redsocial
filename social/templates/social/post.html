@@ -3,45 +3,66 @@
 {% block content %}
 
 <style>
-    .form-post{
+    .post-content{
         width: 100%;
         background: white;
-        padding: 30px;
+        padding: 40px;
         border-radius: 12px;
-    }
-
-    .submit{
-        width: 95%;
-        padding: 10px;
-        background: hsl(252, 75%, 60%);
-        color: white;
-        border-radius: 12px;
+        
     }
     .text{
-
-        width: 95%;
-        padding: 10px;
+        width: 98%;
         border-bottom: 1px solid hsl(252, 75%, 60%);
 
-
     }
-    .imagen{
-        background: hsl(252, 30%, 95%);
-        width: 95%;
-        padding: 10px;
+    
+    .custom-upload-button {
+      background-color: hsl(252, 75%, 60%);
+      color: #fff;
+      margin: 20px;
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      justify-content: center;
+    }
+  
+
+    .custom-upload-button:hover {
+      background-color: #0056b3;
+    }
+    .submit{
+        background: hsl(252, 75%, 60%);
         border-radius: 12px;
-        margin-top: 10px;
-        justify-content: space-between;
-        border: none;
-
-
+        color: #fff;
+        margin: 20px;
+        padding: 15px;
+        width: 80%;
     }
-</style>
 
-<form class="form-post" method="post" enctype="multipart/form-data">
+
+  
+
+    input[type="file"] {
+      display: none;
+    }
+  </style>
+  
+  <form class="post-content" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="submit" type="submit">Publicar</button>
-</form>
+    <label for="custom-upload" class="custom-upload-button" ><i class='bx bx-search'></i></label>
+    <input type="file" id="custom-upload" name="image" style="display: none;">
+    <button class="submit" type="submit">Enviar</button>
+  </form>
+  
+  <script>
+    document.querySelector('.custom-upload-button').addEventListener('click', function() {
+    document.getElementById('custom-upload').click();
+    });
+  </script>
+  
 
 {% endblock %}

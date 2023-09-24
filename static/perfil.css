@@ -48,7 +48,7 @@ body{
 }
 
 .perfil-usuario {
-    background: linear-gradient(#3FD0F4, transparent);
+    background: linear-gradient(hsl(252, 75%, 60%), transparent);
     color: #333;
 }
 .perfil-usuario .sombra {

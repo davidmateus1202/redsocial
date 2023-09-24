@@ -49,10 +49,13 @@
         <div class="profile-photo">
             <img src="{{ post.user.profile.image.url }}">
         </div>
-        <input type="text" placeholder="¿Que estas pensando hoy {{request.user.username}}" id="create-post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Post" class="btn btn-primary">
+        <form class="create-post" method="post" enctype="multipart/form-data" action="{% url 'post_imagen' %}">
+            {% csrf_token %}
+            {{ form.content}}
+            <input type="text" placeholder="¿Que estas pensando hoy {{request.user.username}}" id="create-post" >
+            <button type="submit" class="submit">Post</button>
+            
+        </form>
 
     </form>
     {% for post in posts %}

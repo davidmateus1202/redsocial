@@ -40,7 +40,6 @@ def post(request):
             post = form.save(commit=False)
             post.user = current_user
             post.save()
-            messages.success(request, f'{current_user} su publicacion ha sido creada')
             return redirect('feed')
     else:
         form = PostForm()
@@ -49,15 +48,8 @@ def post(request):
     }
     return render(request, 'social/post.html', context)
 
-def buscar_perfil(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        if username: 
-            return redirect()
 
 
-
-  
 
 def buscar_perfil(request, username = None):
     current_user = request.user 
