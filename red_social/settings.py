@@ -84,17 +84,16 @@ WSGI_APPLICATION = 'red_social.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'red_social3',
-        'USER':'postgres',
-        'PASSWORD':'12345678',
-        'HOST':'localhost',
-        'PORT':'5432'
+        'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'redsocial',
+        'USER': 'postgres', 
+        'PASSWORD': '123456', 
+        'HOST': 'localhost',
+        'PORT': '5432',
 
-    }
 }
-
+}
 
 
 # Password validation
@@ -138,6 +137,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = 'feed'
+LOGIN_URL = 'login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

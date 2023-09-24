@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 
@@ -10,3 +10,4 @@ def room(request, room_id):
         return HttpResponseForbidden()
 
     return render(request, 'chat/room.html', {'room':room})
+# views.py

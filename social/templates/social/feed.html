@@ -49,7 +49,9 @@
         <div class="profile-photo">
             <img src="{{ post.user.profile.image.url }}">
         </div>
-        <input type="text" placeholder="¿Que estas pensando hoy Paola?" id="create-post">
+        <input type="text" placeholder="¿Que estas pensando hoy {{request.user.username}}" id="create-post">
+        {% csrf_token %}
+        {{ form.as_p }}
         <input type="submit" value="Post" class="btn btn-primary">
 
     </form>

@@ -18,6 +18,8 @@ urlpatterns = [
     path('loguin/', LoginView.as_view(template_name = 'social/loguin.html'), name='loguin'),
     path('logout/', LogoutView.as_view(template_name = 'social/logout.html'), name='logout'),
     path('post/', views.post, name='post'),
+    path('follow/<str:username>/',views.follow, name='follow'),
+    path('unfollow/<str:username>/',views.unfollow, name='unfollow')
 
 
 
