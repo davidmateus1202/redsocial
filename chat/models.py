@@ -7,3 +7,12 @@ class Room(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class creatRoom(models.Model):
+    name = models.CharField(max_length=100)
+    users = models.ManyToManyField('auth.User')
+
+    
+    def __str__(self):
+        return self.name
