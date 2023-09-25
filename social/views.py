@@ -74,8 +74,6 @@ def buscar_perfil(request, username = None):
     }
     return render(request, 'social/profile.html', context)
 
-
-
 def profile(request, username = None):
     current_user = request.user
     if username and username != current_user:

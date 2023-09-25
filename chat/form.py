@@ -1,9 +1,9 @@
 # forms.py
 
 from django import forms
-from .models import creaRoom
+from .models import *
 
 class RoomCreationForm(forms.ModelForm):
     class Meta:
-        model = creaRoom
+        model = Room
         fields = ['name', 'description']
