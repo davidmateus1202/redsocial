@@ -25,8 +25,5 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['content', 'image']
         widgets = {
-            'image': forms.ClearableFileInput(attrs={
-                'class': 'imagen',
-                'rows':2
-                }),
+            'image': forms.ClearableFileInput(attrs={'class': 'imagen'})
         }

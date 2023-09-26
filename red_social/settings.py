@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-g*52r14_%pd(97md)i4)4+@f3d^s2hw8%e_$ntc8k-wj@b4%)2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.13.128.205','127.0.0.1','192.168.80.11','192.168.80.22']
+
+ALLOWED_HOSTS = ['10.13.129.126','127.0.0.1','192.168.80.11']
+
 
 
 # Application definition
@@ -82,9 +84,8 @@ WSGI_APPLICATION = 'red_social.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
-        'default': {
+   'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'redsocial',
         'USER': 'postgres', 

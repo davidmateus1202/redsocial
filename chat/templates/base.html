@@ -1,30 +1,103 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    {% load static %}
-
+    <title>Apock web design</title>
     <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="{% static 'mensajes.css' %}">
 </head>
-
 <body>
+    <section class="body-chat">
+        <div class="seccion-titulo">
+            <h3>
+                <i class="fas fa-comments"></i>
+                Mensajes
+            </h3>
+        </div>
+        <div class="seccion-usuarios">
+            <div class="seccion-buscar">
+                <div class="input-buscar">
+                    <input type="search" placeholder="Buscar usuario">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            <div class="seccion-lista-usuarios">
 
-    <div class="container my-3">
-        {% block content %}
+                {% for user in users %}
 
-        {% endblock %}
-    </div>
+                    <div class="usuario">
+                        <div class="avatar">
+                            <img src="./images/profile-2.jpg" alt="img">
+                            <span class="estado-usuario enlinea"></span>
+                        </div>
+                        <div class="cuerpo">
+                            <span>
+                                
+                               
+                                     
+                                <a href="{% url 'chat:create_room' %}?name=Sala%20de%20chat%20entre%20{{ user.username }}%20y%20{{ users.username }}&user_id_to_find={{ users.id }}">
+                                    {% csrf_token %}
+                                    Chatear con {{ user.username }}
+                                </a>
+                                    
+                                <small style="font-style: italic;">
+                                    {{ user.id }}
+                                </small>
+                            </span>
+                            <span>{{ user.username }}</span>
+                        </div>
+                        <span class="notificacion">
+                            3
+                        </span>
+                    </div>
 
-    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+                {% endfor %}
 
+            </div>
+        </div>
+        <div class="seccion-chat">
+            <div class="usuario-seleccionado">
+                <div class="avatar">
+                    <img src="./images/profile-10.jpg" alt="img">
+                </div>
+                <div class="cuerpo">
+                    <span>Nombre de usuario</span>
+                    <span>Activo - Escribiendo...</span>
+                </div>
+                <div class="opciones">
+                    <ul>
+                        <li>
+                            <button type="button"><i class="fas fa-video"></i></button>
+                        </li>
+                        <li>
+                            <button type="button"><i class="fas fa-phone-alt"></i></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-chat">
+                <div class="mensaje">
+                   
+                    {% block content %}
+
+                    {% endblock %}
+
+
+
+                </div>
+              
+            </div>
+        
+        </div>
+    </section>
+    
 </body>
-
 </html>
+
+

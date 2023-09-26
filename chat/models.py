@@ -9,6 +9,7 @@ class Room(models.Model):
         return self.name
     
 
+
 class creatRoom(models.Model):
     name = models.CharField(max_length=100)
     users = models.ManyToManyField('auth.User')
