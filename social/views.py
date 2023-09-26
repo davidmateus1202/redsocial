@@ -1,6 +1,5 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -10,11 +9,33 @@ from chat import models
 
 def feed(request):
     posts = Post.objects.all()
+    form = PostForm()
 
     context = {
+        'posts':posts,
+        'form':form
+    }
+    current_user = get_object_or_404(User, pk = request.user.pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            post = Post(content=content, user = current_user)
+            post.save()
+            #return redirect('feed')
+
+    form = PostForm()
+
+    context = {
+        'form':form,
         'posts':posts
     }
     return render(request, 'social/feed.html', context)
+
+
+
+
+
 
 def register(request):
 
@@ -109,3 +130,6 @@ def unfollow(request, username):
         rel.delete()
         messages.success(request, f'ya no sigues a {username}')
     return redirect('feed')
+
+
+

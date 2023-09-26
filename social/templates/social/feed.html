@@ -3,6 +3,21 @@
 {% load static %}
 {% block content %}
 
+    <style>
+        .text{
+
+            width: 88%;
+            height: 30px;
+            align-items: center;
+            margin-left: 5px;
+            justify-content: center;
+            
+        }
+        .submit{
+            margin-left: 15px;
+        }
+    </style>
+
 
 
 
@@ -45,19 +60,16 @@
         </div>
     </div>
     <!--------------------------fin de historias-->
-    <form class="create-post">
-        <div class="profile-photo">
-            <img src="{{ post.user.profile.image.url }}">
-        </div>
-        <form class="create-post" method="post" enctype="multipart/form-data" action="{% url 'post_imagen' %}">
+    <div class="create-post">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'feed' %}">
+
             {% csrf_token %}
             {{ form.content}}
-            <input type="text" placeholder="¿Que estas pensando hoy {{request.user.username}}" id="create-post" >
-            <button type="submit" class="submit">Post</button>
-            
+            <button class="btn btn-primary" type="submit" class="submit">
+                Post
+            </button>
         </form>
-
-    </form>
+    </div>
     {% for post in posts %}
     <!-------------------------------------------------publicaciones------------------->
     <div class="feeds">
@@ -73,6 +85,7 @@
                         <h3><a href="{% url 'profile' post.user.username %}">{{post.user.username}}</a></h3>
                         <small>{{post.time|naturaltime}}</small>
                         <div class="post">{{post.content}}</div>
+                        <div class="post">{{crear_post.content}}</div>
                     </div>
                   
                 </div>

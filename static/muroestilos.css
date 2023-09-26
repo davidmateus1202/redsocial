@@ -284,7 +284,6 @@ main .container .left .profile {
 /*========================== crear post ======================*/
 .middle .create-post{
     width: 100%;
-    display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 1rem;

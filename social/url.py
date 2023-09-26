@@ -20,6 +20,7 @@ urlpatterns = [
     path('post_imagen/', views.post, name='post_imagen'),
     path('follow/<str:username>/',views.follow, name='follow'),
     path('unfollow/<str:username>/',views.unfollow, name='unfollow'),
+    
 
 
 
