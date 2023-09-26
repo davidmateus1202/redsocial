@@ -41,7 +41,7 @@
                                 
                                
                                      
-                                <a href="{% url 'chat:create_room' %}?name=Sala%20de%20chat%20entre%20{{ user.username }}%20y%20{{ users.username }}&user_id_to_find={{ users.id }}">
+                                <a href="{% url 'chat:create_room' %}?user_id_to_find={{ user.id }}">
                                     {% csrf_token %}
                                     Chatear con {{ user.username }}
                                 </a>
@@ -73,7 +73,11 @@
                 <div class="opciones">
                     <ul>
                         <li>
-                            <button type="button"><i class="fas fa-video"></i></button>
+                            <form action="">
+                                <button type="button"><a href="{%url 'chat:call' %}" class="fas fa-video"></a></button>
+                                
+                            </form>
+                            
                         </li>
                         <li>
                             <button type="button"><i class="fas fa-phone-alt"></i></button>
