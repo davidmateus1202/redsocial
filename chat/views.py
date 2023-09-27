@@ -87,6 +87,7 @@ def chat_users(request):
     })
 
 
+
 @login_required
 def videocall(request): 
     try:
@@ -106,17 +107,12 @@ def videocall(request):
 
             # Encuentra la sala común entre los dos usuarios (si existe)
             common_room = rooms_of_current_user.intersection(rooms_of_user_to_find).first()
-            print(common_room)
             
             if common_room:
                 print(request.user.username)
-                return render(request, 'videocam.html', {'name': request.user.username, 'room': room.id})
+                return render(request, 'videocam.html', {'name': request.user.username, 'room': common_room.id})
                 
     except json.JSONDecodeError:
         return JsonResponse({'message': 'Error en el formato JSON.'}, status=400)
 
     return HttpResponseBadRequest("No se encontraron usuarios disponibles.")
-    
-
-
-
