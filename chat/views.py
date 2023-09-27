@@ -116,3 +116,32 @@ def videocall(request):
         return JsonResponse({'message': 'Error en el formato JSON.'}, status=400)
 
     return HttpResponseBadRequest("No se encontraron usuarios disponibles.")
+
+@login_required
+def call(request): 
+    try:
+        name = request.GET.get('name', '')  # Nombre de la sala
+        current_user = request.user  # Usuario autenticado
+
+        # Obtiene una lista de usuarios disponibles (excluyendo al usuario autenticado)
+        available_users = User.objects.exclude(id=current_user.id)
+
+        if available_users:
+            # Selecciona aleatoriamente un usuario de la lista
+            user_to_find = random.choice(available_users)
+
+            # Agrega un sufijo único al nombre de la sala (por ejemplo, un timestamp)
+            rooms_of_current_user = Room.objects.filter(users=current_user.id)
+            rooms_of_user_to_find = Room.objects.filter(users=user_to_find.id)
+
+            # Encuentra la sala común entre los dos usuarios (si existe)
+            common_room = rooms_of_current_user.intersection(rooms_of_user_to_find).first()
+            
+            if common_room:
+                print(request.user.username)
+                return render(request, 'llamadavoz.html', {'name': request.user.username, 'room': common_room.id})
+                
+    except json.JSONDecodeError:
+        return JsonResponse({'message': 'Error en el formato JSON.'}, status=400)
+
+    return HttpResponseBadRequest("No se encontraron usuarios disponibles.")

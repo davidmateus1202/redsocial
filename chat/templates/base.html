@@ -67,7 +67,7 @@
                     <img src="./images/profile-10.jpg" alt="img">
                 </div>
                 <div class="cuerpo">
-                    <span>Nombre de usuario</span>
+                    <span>{{user.username}}</span>
                     <span>Activo - Escribiendo...</span>
                 </div>
                 <div class="opciones">
@@ -80,7 +80,7 @@
                             
                         </li>
                         <li>
-                            <button type="button"><i class="fas fa-phone-alt"></i></button>
+                            <button type="button"><a href="{%url 'chat:call_voz'%}" class="fas fa-phone-alt"></a></button>
                         </li>
                     </ul>
                 </div>
