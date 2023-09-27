@@ -4,10 +4,31 @@ from django.contrib.auth.models import User
 from .models import *
 
 class UserRegisterForm(UserCreationForm):
+    username = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class':'form-control',
+        'id':'floatingInput',
+        'placeholder':'Username'
 
-    email = forms.EmailField()
-    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirmar contraseña', widget=forms.PasswordInput)
+    }), required=True)
+
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={
+        'class':'form-control',
+        'id':'floatingInput',
+        'placeholder':'user@example.com',
+        
+    }), required=True)
+    password1 = forms.CharField(label='', widget=forms.PasswordInput(attrs={
+        'class':'form-control',
+        'id':'floatingPassword',
+        'placeholder':'Contraseña',
+        
+    }), required=True)
+    password2 = forms.CharField(label='', widget=forms.PasswordInput(attrs={
+        'class':'form-control',
+        'id':'floatingPassword',
+        'placeholder':'Confirma contraseña',
+        
+    }), required=True)
 
     class Meta:
         model = User
@@ -27,3 +48,34 @@ class PostForm(forms.ModelForm):
         widgets = {
             'image': forms.ClearableFileInput(attrs={'class': 'imagen'})
         }
+
+class updated_user(forms.ModelForm):
+
+    username = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class':'form-control',
+        'id':'floatingInput',
+        'placeholder':'Username'
+
+    }))
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={
+        'class':'form-control',
+        'id':'floatingInput',
+        'placeholder':'user@example.com',
+        
+    }))
+
+    class Meta:
+        model = User
+        fields = ['username','email']
+        help_texts = {k:"" for k in fields}
+
+
+class profile_updated(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+        widgets = {
+            'image': forms.ClearableFileInput(attrs={'class': 'imagen'}),
+
+        }
+

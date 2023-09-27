@@ -206,12 +206,31 @@ main .container .left .profile {
     border-bottom-left-radius: var(--car-border-radius);
     overflow: hidden;
 }
+/*----------------------switch---------------------*/
+.left .sidebar .switch{
+    background: #343D58;
+    border-radius: 1000px;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    outline: none;
+}
+.left .sidebar .switch>span{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    background: none;
+} 
+
 .left .btn{
     margin-top: 1rem;
     width: 100%;
     text-align: center;
     padding: 1rem 0;
 }
+
 /*----------------------------notificaciones popup------*/
 
 .main .container .middle{

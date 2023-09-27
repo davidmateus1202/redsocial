@@ -8,6 +8,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='perfil.jpg')
+    image_fondo = models.ImageField(default='')
     
     def __str__(self):
         return f'Perfil de {self.user.username}'

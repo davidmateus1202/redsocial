@@ -5,7 +5,8 @@
 
 <section class="perfil-usuario">
 	<div class="contenedor-perfil">
-		<div class="portada-perfil" style="background-image: url('http://localhost/multimedia/relleno/fondo-9.png');">
+		<div class="portada-perfil">
+			<img src="{{ user.profile.imagen_fondo.url }}" id="img">
 			<div class="sombra"></div>
 
 			<div class="avatar-perfil">
@@ -13,8 +14,7 @@
 				
 			   
 				<div class="avatar-perfil2">
-					<label for="btn-file">Cambiar Foto</label>
-					<input type="file" name="btn-file" id="btn-file">
+					
 					
 					
 				</div>

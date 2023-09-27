@@ -11,6 +11,7 @@
 
 </head>
 <body>
+    
 
         <main>
             <div class="contenedor__todo" style="margin-top: 20px;">
@@ -28,6 +29,39 @@
                         </button>
                     </div>
                 </div>
+                <style>
+                    .custom-upload-button {
+                    background-color: hsl(252, 75%, 60%);
+                    color: #fff;
+                    margin: 20px;
+                    padding: 15px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    width: 50px;
+                    height: 50px;
+                    justify-content: center;
+                  }
+                
+              
+                  .custom-upload-button:hover {
+                    background-color: #0056b3;
+                  }
+                  .submit{
+                      background: hsl(252, 75%, 60%);
+                      border-radius: 12px;
+                      color: #fff;
+                      margin: 20px;
+                      padding: 15px;
+                      width: 70%;
+                  }
+              
+                  input[type="file"] {
+                    display: none;
+                  }
+
+                </style>
+                
 
                 <div class="contenedor__login-registro">
                     <form class="form formulario__login" method="post">
@@ -39,7 +73,6 @@
                         {% csrf_token %}
                         {{form.as_p}}
 
-                    
                         <button type="submit" id="submit">Registrate</button>
                     
                     </form>
@@ -50,5 +83,6 @@
 
 
         </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

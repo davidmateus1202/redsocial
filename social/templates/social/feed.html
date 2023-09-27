@@ -89,9 +89,12 @@
                     </div>
                   
                 </div>
+                {% if request.user == post.user %}
                 <span class="edit">
-                    <i class='bx bx-dots-horizontal-rounded'></i>
+                    <a href="{% url 'delete' post.id %}"><i class='bx bx-x'></i></a>
+                    
                 </span>
+                {% endif %}
 
             </div>
 

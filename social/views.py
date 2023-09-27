@@ -3,9 +3,9 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegisterForm, PostForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
-from chat import models
+
 
 def feed(request):
     posts = Post.objects.all()
@@ -15,26 +15,7 @@ def feed(request):
         'posts':posts,
         'form':form
     }
-    current_user = get_object_or_404(User, pk = request.user.pk)
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            content = form.cleaned_data['content']
-            post = Post(content=content, user = current_user)
-            post.save()
-            #return redirect('feed')
-
-    form = PostForm()
-
-    context = {
-        'form':form,
-        'posts':posts
-    }
     return render(request, 'social/feed.html', context)
-
-
-
-
 
 
 def register(request):
@@ -43,8 +24,6 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data['username']
-            messages.success(request, f'El usuario {username} ha sido creado exitosamente!')
             return redirect('loguin')
     else:
         form = UserRegisterForm()
@@ -52,6 +31,8 @@ def register(request):
         'form':form
     }
     return render(request, 'social/registro.html', context)
+
+
 @login_required
 def post(request):
     current_user = get_object_or_404(User, pk = request.user.pk)
@@ -68,8 +49,6 @@ def post(request):
         'form':form
     }
     return render(request, 'social/post.html', context)
-
-
 
 
 def buscar_perfil(request, username = None):
@@ -107,6 +86,8 @@ def profile(request, username = None):
         'posts':posts,
         'user':user
     }
+    
+
     return render(request, 'social/profile.html', context)
 
 def follow(request, username):
@@ -132,4 +113,26 @@ def unfollow(request, username):
     return redirect('feed')
 
 
+def delete(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    return redirect('feed')
 
+def updated_profile(request):
+  
+    if request.method == 'POST':
+        form_1 = updated_user(request.POST, instance=request.user)
+        form = profile_updated(request.POST, request.FILES, instance=request.user.profile)
+        
+        if form.is_valid() and form_1.is_valid():
+            form_1.save()
+            form.save()
+            return redirect('feed')
+    else:
+        form = profile_updated()
+        form_1 = updated_user()
+    context = {
+        'form':form,
+        'form_1':form_1
+    }
+    return render(request, 'social/actualizar.html', context)

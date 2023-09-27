@@ -81,11 +81,15 @@
 							<a class="menu-item" id="messages-notifications" href="{% url 'chat:chat_users' %}">
 								<span><i class='bx bxs-chat'><small class="notification-count"></i></small></span><h3>Chat</h3>
 							</a>
-							<a class="menu-item">
-								<span><i class='bx bxs-palette'></i></span><h3>Tema</h3>
+							<a class="menu-item" id="menu_switch">
+								<button class="switch" id="switch">
+									<span><i class='bx bxs-sun'></i></span>
+									<span><i class='bx bxs-moon'></i></span>
+								</button>
+								<!--<span><i class='bx bxs-palette'></i></span><h3>Tema</h3>-->
 							</a>
-							<a class="menu-item" href="{% url 'logout' %}">
-								<span><i class='bx bxs-cog'></i><h3>Cerrar sesion</h3>
+							<a class="menu-item" href="{% url 'actualizar' %}">
+								<span><i class='bx bxs-cog'></i><h3>Configuracion</h3>
 							</a>
 						</div>
 		

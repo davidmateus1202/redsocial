@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<style>
+    .post-content{
+        width: 100%;
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        
+    }
+    .text{
+        width: 95%;
+        border-bottom: 1px solid hsl(252, 75%, 60%);
+        
+    }
+    
+    .custom-upload-button {
+      background-color: hsl(252, 75%, 60%);
+      color: #fff;
+      margin: 20px;
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      justify-content: center;
+    }
+    
+  
+    .custom-upload-button:hover {
+      background-color: #0056b3;
+    }
+    .submit{
+        background: hsl(252, 75%, 60%);
+        border-radius: 12px;
+        color: #fff;
+        margin: 20px;
+        padding: 15px;
+        width: 70%;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  </style>
+  
+  <form class="post-content" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.image}}
+    {{form_1.as_p}}
+    <label for="custom-upload" class="custom-upload-button" ><i class='bx bx-search'></i></label>
+    <input type="file" id="custom-upload" name="image" style="display: none;">
+
+    
+    <button class="submit" type="submit">Enviar</button>
+  </form>
+
+  <script>
+    document.querySelector('.custom-upload-button').addEventListener('click', function() {
+    document.getElementById('custom-upload').click();
+    });
+  </script>
+
+
+{% endblock %}
