@@ -27,6 +27,7 @@ h3{
     font-size: 17px;
 }
 
+
 *,*::before, *::after{
     margin: 0;
     padding: 0;
@@ -37,30 +38,30 @@ h3{
     border: none;
 }
 
-body{
+body.dark-mode{
     font-family: 'Poppins', sans-serif;
-    color: var(--color-dark);
-    background: var(--color-light);
+    color: var(--color-white);
+    background: #13142a;
     overflow-x: hidden;
 }
-.container{
+body.dark-mode .container{
     width: 80%;
     margin: 0 auto;
 }
-.profile-photo {
+body.dark-mode .profile-photo {
     width: 2.7rem;
     aspect-ratio: 1/1;
     border-radius: 50%;
     overflow: hidden;
 }
-img {
+body.dark-mode img {
     display: block;
     width: 100%;
 }
-a{
+body.dark-mode a{
     text-decoration: none;
 }
-.btn {
+body.dark-mode .btn {
     display: inline-block;
     padding: var(--btn-padding);
     font-weight: 500;
@@ -70,80 +71,80 @@ a{
     font-size: 0.9rem;
 
 }
-.btn:hover {
+body.dark-mode .btn:hover {
     opacity: 0.8;
 
 }
-.btn-primary {
-    background: var(--color-primary);
+body.dark-mode .btn-primary {
+    background: var(--color-dark);
     color: white;
     padding: 10px 30px;
     
 
 }
-.text-bold {
+body.dark-mode .text-bold {
     font-weight: 500;
 }
-.text-muted {
-    color: var(--color-gray);
+body.dark-mode .text-muted {
+    color: var(--color-white);
 }
 
-nav{
+body.dark-mode nav{
     width: 100%;
-    background: var(--color-white);
+    background: #21213b;
     padding: 0.7rem 0;
     position: fixed;
     top: 0;
     z-index: 10;
 }
-nav .container {
+body.dark-mode nav .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
 }
-.search-bar {
-    background: var(--color-light);
+body.dark-mode .search-bar {
+    background: #13142a;
     border-radius: var(--border-radius);
     padding: var(--search-padding);
 
 }
-.search-bar input[type="search"] {
+body.dark-mode .search-bar input[type="search"] {
     background: transparent;
     width: 30vw;
     margin-left: 1rem;
     font-size: 0.9rem;
-    color: var(--color-dark);
+    color: var(--color-light);
 }
-nav .search-bar input[type="search"]::placeholder {
-    color: var(--color-gray);
+body.dark-mode nav .search-bar input[type="search"]::placeholder {
+    color: var(--color-light);
 
 }
-nav .create {
+body.dark-mode nav .create {
     display: flex;
     align-items: center;
     gap: 2rem;
 
 }
 /*--------------------estilo del main-----------------------*/
-main{
+body.dark-mode main{
     position: relative;
     top: 5.4rem;
 }
-main .container {
+body.dark-mode main .container {
     display: grid;
     grid-template-columns: auto 40vw auto;
     column-gap: 2rem;
     position: relative;
 }
-main .container .left {
+body.dark-mode main .container .left {
     height: max-content;
     position: sticky;
     top: var(--sticky-top-left) ;
 }
-main .container .left .profile {
+body.dark-mode main .container .left .profile {
     padding: var(--card-padding);
-    background: var(--color-white);
+    background: #1a1a33;
     border-radius: var(--car-border-radius);
     display: flex;
     align-items: center;
@@ -152,12 +153,12 @@ main .container .left .profile {
 
 }
 /*--------------------menu de izquierda---------------------*/
-.left .sidebar {
+body.dark-mode .left .sidebar {
     margin-top: 1rem;
-    background: var(--color-white);
+    background: #1a1a33;
     border-radius: var(--car-border-radius);
 }
-.left .sidebar .menu-item {
+body.dark-mode .left .sidebar .menu-item {
     display: flex;
     align-items: center;
     height: 4rem;
@@ -165,31 +166,31 @@ main .container .left .profile {
     transition: all 300ms ease;
     position: relative;
 }
-.left .sidebar .menu-item:hover {
-    background: var(--color-light);
+body.dark-mode .left .sidebar .menu-item:hover {
+    background: #13142a;
 }
 
-.left .sidebar i {
+body.dark-mode .left .sidebar i {
     font-size: 1.4rem;
     color: var(--color-gray);
     margin-left: 2rem;
     position: relative;
 }
 
-.left .sidebar h3{
+body.dark-mode .left .sidebar h3{
     margin-left: 1.5rem;
     font-size: 1rem;
 
 }
-.left .sidebar .active{
-    background: var(--color-light);
+body.dark-mode .left .sidebar .active{
+    background: #1a1a33;
 
 }
-.left .sidebar .active i, .left .sidebar .active h3{
+body.dark-mode .left .sidebar .active i, .left .sidebar .active h3{
     color: var(--color-primary);
 
 }
-.left .sidebar .active::before{
+body.dark-mode .left .sidebar .active::before{
     content: "";
     display: block;
     width: 0.5rem;
@@ -198,26 +199,14 @@ main .container .left .profile {
     background: var(--color-primary);
 }
 
-.left .sidebar .menu-item:first-child.active{
+body.dark-mode .left .sidebar .menu-item:first-child.active{
     border-top-left-radius: var(--car-border-radius);
     overflow: hidden;
 }
-.left .sidebar .menu-item:last-child.active{
+body.dark-mode .left .sidebar .menu-item:last-child.active{
     border-bottom-left-radius: var(--car-border-radius);
     overflow: hidden;
 }
-/*----------------------switch---------------------*/
-.left .sidebar .switch{
-    background: #343D58;
-    border-radius: 1000px;
-    border: none;
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    outline: none;
-    
-}
-
 .left .btn{
     margin-top: 1rem;
     width: 100%;
@@ -227,20 +216,20 @@ main .container .left .profile {
 
 /*----------------------------notificaciones popup------*/
 
-.main .container .middle{
+body.dark-mode .main .container .middle{
     width: 100%;
 }
 
 
 
 /*======================= parte central del front===================*/
-.middle .stories{
+body.dark-mode .middle .stories{
     display: flex;
     justify-content: space-between;
     height: 12rem;
     gap: 0.5rem;
 }
-.middle .stories .story{
+body.dark-mode .middle .stories .story{
     padding: var(--card-padding);
     border-radius: var(--car-border-radius);
     display: flex;
@@ -253,7 +242,7 @@ main .container .left .profile {
     position: relative;
     overflow: hidden;
 }
-.middle .stories .story::before{
+body.dark-mode .middle .stories .story::before{
     content: "";
     display: block;
     width: 100%;
@@ -263,7 +252,7 @@ main .container .left .profile {
     bottom: 0;
 
 }
-.middle .stories .story .name{
+body.dark-mode .middle .stories .story .name{
     z-index: 2;
 }
 
@@ -288,36 +277,36 @@ main .container .left .profile {
     background: url(./casa5.jpg) no-repeat center center/cover;
 
 }
-.middle .story .profile-photo{
+body.dark-mode .middle .story .profile-photo{
     width: 2rem;
     height: 2rem;
     align-self: start;
     border: 3px solid var(--color-primary);
 }
 /*========================== crear post ======================*/
-.middle .create-post{
+body.dark-mode .middle .create-post{
     width: 100%;
     align-items: center;
     justify-content: space-between;
     margin-top: 1rem;
-    background: var(--color-white);
+    background: #1a1a33;
     padding: 0.4rem var(--card-padding);
     border-radius: var(--border-radius);
 
 
 }
-.middle .create-post input[type="text"]{
+body.dark-mode .middle .create-post input[type="text"]{
     justify-self: start;
     width: 100%;
     padding-left: 1rem;
     background: transparent;
-    color: var(--color-dark);
+    color: var(--color-white);
     margin-right: 1rem;
 }
 /*================== feeds ============================================*/
 
-.middle .feeds .feed{
-    background: var(--color-white);
+body.dark-mode .middle .feeds .feed{
+    background: #1a1a33;
     border-radius: var(--car-border-radius);
     padding: var(--card-padding);
     margin: 1rem 0;
@@ -327,34 +316,34 @@ main .container .left .profile {
 
 }
 
-.middle .feed .head{
+body.dark-mode .middle .feed .head{
     display: flex;
     justify-content: space-between;
 
 }
-.middle .feed .user{
+body.dark-mode .middle .feed .user{
     display: flex;
     justify-content: flex-start;
     gap: 1rem;
     align-items: center;
 }
-.middle .feed .photo{
+body.dark-mode .middle .feed .photo{
     border-radius: var(--car-border-radius);
     overflow: hidden;
     margin: 0.7rem 0;
 }
-.middle .feed .action-buttons{
+body.dark-mode .middle .feed .action-buttons{
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 1.4rem;
     margin: 0.6rem;
 }
-.middle .liked-by{
+body.dark-mode .middle .liked-by{
     display: flex;
 }
 
-.middle .liked-by span{
+body.dark-mode .middle .liked-by span{
     width: 1.4rem;
     height: 1.4rem;
     display: block;
@@ -365,16 +354,16 @@ main .container .left .profile {
 
 
 }
-.middle .liked-by span:first-child{
+body.dark-mode .middle .liked-by span:first-child{
     margin: 0;
 
 }
-.middle .liked-by p{
+body.dark-mode .middle .liked-by p{
     margin-left: 0.5rem;
 
 }
 /*================ parte derecha =======================*/
-main .container .right{
+body.dark-mode main .container .right{
     height: max-content;
     position: sticky;
     top: var(--sticky-top-right);
@@ -655,63 +644,34 @@ main .container .right{
         display: none;
     }
 
-    main .container{
+    body.dark-mode main .container{
         grid-template-columns: 0 auto 5rem;
         gap: 0;
     }
 
-    main .container .left{
+    body.dark-mode main .container .left{
         grid-column: 3/4;
         position: fixed;
         bottom: 0;
         right: 0;
     }
-    .left .notifications-popup{
+    body.dark-mode .left .notifications-popup{
         position: absolute;
         left: -20rem;
         width: 20rem;
     
     }
-    .left .notifications-popup::before{
+    body.dark-mode .left .notifications-popup::before{
         display: absolute;
         top: 1.3rem;
         left: calc(20rem - 0.6rem);
         display: block;
     }
 
-    main .container .middle{
+    body.dark-mode main .container .middle{
         grid-column: 1/3;
     }
     main .container .right{
         display: none;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -19,8 +19,6 @@
     </style>
 
 
-
-
     <!---------------------------historias de inicio------------>
     <div class="stories">
         <div class="story">
@@ -60,6 +58,7 @@
         </div>
     </div>
     <!--------------------------fin de historias-->
+
     <div class="create-post">
         <form method="POST" enctype="multipart/form-data" action="{% url 'feed' %}">
 
@@ -70,6 +69,7 @@
             </button>
         </form>
     </div>
+
     {% for post in posts %}
     <!-------------------------------------------------publicaciones------------------->
     <div class="feeds">

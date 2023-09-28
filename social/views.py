@@ -10,7 +10,16 @@ from django.contrib.auth.decorators import login_required
 def feed(request):
     posts = Post.objects.all()
     form = PostForm()
-
+    current_user = get_object_or_404(User, pk = request.user.pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+            return redirect('feed')
+    else:
+        form = PostForm()
     context = {
         'posts':posts,
         'form':form
@@ -136,3 +145,10 @@ def updated_profile(request):
         'form_1':form_1
     }
     return render(request, 'social/actualizar.html', context)
+
+def cambiar_tema(request):
+    if request.method == 'POST':
+        request.user.is_dark_mode = True
+        request.user.save()
+        return redirect('feed')
+    return render(request, 'social/feed.html')

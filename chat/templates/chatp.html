@@ -1,0 +1,17 @@
+<!-- create_room.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear una sala de chat</title>
+</head>
+<body>
+    <h1>Crear una sala de chat</h1>
+
+    <form action="{% url 'chat:create_room' %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <input type="submit" value="Crear sala">
+    </form>
+</body>
+</html>

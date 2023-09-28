@@ -37,13 +37,25 @@
                             <span class="estado-usuario enlinea"></span>
                         </div>
                         <div class="cuerpo">
+<<<<<<< HEAD
                                 <span> 
                                     {{ user.username }}
+=======
+                            <span>
+                                
+                               
+                                     
+                                <a href="{% url 'chat:create_room' %}?user_id_to_find={{ user.id }}">
+                                    {% csrf_token %}
+                                    Chatear con {{ user.username }}
+                                </a>
+                                    
+>>>>>>> 0fe6933d9fd552c764d333f7cdf13d5953fa7bb3
                                 <small style="font-style: italic;">
                                     {{ user.id }}
                                 </small>
                             </span>
-                            <span></span>
+                            <span>{{ user.username }}</span>
                         </div>
                         <span class="notificacion">
                             3
@@ -60,16 +72,20 @@
                     <img src="./images/profile-10.jpg" alt="img">
                 </div>
                 <div class="cuerpo">
-                    <span>Nombre de usuario</span>
+                    <span>{{user.username}}</span>
                     <span>Activo - Escribiendo...</span>
                 </div>
                 <div class="opciones">
                     <ul>
                         <li>
-                            <button type="button"><i class="fas fa-video"></i></button>
+                            <form action="">
+                                <button type="button"><a href="{%url 'chat:call' %}" class="fas fa-video"></a></button>
+                                
+                            </form>
+                            
                         </li>
                         <li>
-                            <button type="button"><i class="fas fa-phone-alt"></i></button>
+                            <button type="button"><a href="{%url 'chat:call_voz'%}" class="fas fa-phone-alt"></a></button>
                         </li>
                     </ul>
                 </div>

@@ -22,7 +22,7 @@ urlpatterns = [
     path('unfollow/<str:username>/',views.unfollow, name='unfollow'),
     path('actualizar/', views.updated_profile, name='actualizar'),
     path('delet/<int:post_id>', views.delete, name='delete'),
-    
+
 
 
 
