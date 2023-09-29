@@ -4,18 +4,21 @@
 {% block content %}
 
     <style>
-        .text{
+        .form-control{
+            width: 100%;
+            height: 35px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        body.dark-mode .form-control{
+            background: #1a1a33;
+            color: #fff;
+        }
+        body.dark-mode .form-control > input{
+            color: #fff;
+        }
 
-            width: 88%;
-            height: 30px;
-            align-items: center;
-            margin-left: 5px;
-            justify-content: center;
-            
-        }
-        .submit{
-            margin-left: 15px;
-        }
+
     </style>
 
 

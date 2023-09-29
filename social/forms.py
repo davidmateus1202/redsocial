@@ -35,15 +35,17 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username','email','password1','password2']
         help_texts = {k:"" for k in fields}
 class PostForm(forms.ModelForm):
+
+    content = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class':'form-control',
+        'id':'floatingInput',
+        'placeholder':'¿Qué estás pensando hoy?',
+        'rows':2
+    }))
     class Meta:
         model = Post
         fields = ['content', 'image']
         widgets = {
-            'content': forms.Textarea(attrs={
-                'class': 'text',
-                'rows': 2,
-                'placeholder': '¿Qué estás pensando hoy?'
-            }),
             'image': forms.ClearableFileInput(attrs={'class': 'imagen'})
         }
 
