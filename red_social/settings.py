@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-g*52r14_%pd(97md)i4)4+@f3d^s2hw8%e_$ntc8k-wj@b4%)2
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['10.13.129.126','127.0.0.1','192.168.80.11','192.168.0.20']
+ALLOWED_HOSTS = ['10.13.129.126','127.0.0.1','192.168.80.11','10.13.129.130']
 
 
 # Application definition
@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chat'
+    'chat',
+    'marketplace',
+    'categoria',
+    'store',
 
     
 ]
@@ -73,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'categoria.procesador_contexto.menu_links',
             ],
         },
     },
@@ -129,7 +133,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [
+    'red_social/static'
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

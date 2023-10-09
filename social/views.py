@@ -5,17 +5,17 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import *
 from django.contrib.auth.decorators import login_required
+from store.models import Producto
 
 
 def feed(request):
     posts = Post.objects.all()
     form = PostForm()
-    current_user = get_object_or_404(User, pk = request.user.pk)
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.user = current_user
+            post.user = get_object_or_404(User, pk = request.user.pk)
             post.save()
             return redirect('feed')
     else:
@@ -69,10 +69,10 @@ def buscar_perfil(request, username = None):
             user = User.objects.get(username=username)
             posts = user.posts.all()
         except User.DoesNotExist:
-            messages.error(request, f'El usuario {username} proporcionado no existe')
             user=None
             posts = None
-            return render(request, 'social/feed.html')
+            return redirect('feed')
+            
     else:
         user = current_user
         posts = current_user.posts.all()
@@ -146,9 +146,10 @@ def updated_profile(request):
     }
     return render(request, 'social/actualizar.html', context)
 
-def cambiar_tema(request):
-    if request.method == 'POST':
-        request.user.is_dark_mode = True
-        request.user.save()
-        return redirect('feed')
-    return render(request, 'social/feed.html')
+def marketplace(request):
+    products = Producto.objects.all().filter(is_available=True)
+    content = {
+        'products': products
+    }
+    return render(request, 'index.html', content)
+    

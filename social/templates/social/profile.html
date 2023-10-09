@@ -21,16 +21,14 @@
 			</div>
 
 			<div class="datos-perfil">
-				<h4 class="titulo-usuario">@{{ user.username }}</h4>
+				<h4 class="titulo-usuario" style="font-size: 20px; margin-left: 20px;">@{{ user.username }}</h4>
 				<ul class="lista-perfil">
-					<li>Seguidores <p>{{ user.profile.followers.count }}</p></li>
-					<li>Seguidos <p>{{ user.profile.following.count }}</p></li>
-					<li>publicaciones {{ user.posts.count }}</li>
+					<li><p>Seguidores {{ user.profile.followers.count }}</p></li>
+					<li><p>Seguidos {{ user.profile.following.count }}</p></li>
+					<li><p>publicaciones {{ user.posts.count }}</p></li>
 				</ul>
 			</div>
 			<div class="opcciones-perfil">
-				<button type="">Cambiar portada</button>
-				<button type=""><i class="fas fa-wrench"></i></button>
 				{% if request.user.is_authenticated %}
 						{% if user.username != request.user.username %}
 							{% if user not in request.user.profile.following %}

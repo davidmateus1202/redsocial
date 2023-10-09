@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render, redirect
+
+from social.models import Relationship
 from .form import RoomForm
 from .models import *
 from django.contrib.auth.models import User
@@ -18,12 +20,17 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.db.models import Q
 @login_required
 def room(request, room_id):
+    current_user = request.user
+    user_follow = Relationship.objects.filter(to_user=current_user)
     try:
         room = request.user.rooms_joined.get(id=room_id)
     except:
         return HttpResponseForbidden()
-
-    return render(request, 'chat/room.html', {'room':room})
+    content = {
+        'room': room,
+        'user_follow': user_follow,
+    }
+    return render(request, 'chat/room.html', content)
 
 # views.py
 def room_detail(request, room_id):
@@ -81,9 +88,10 @@ def create_room(request):
     return HttpResponseBadRequest("Método no válido.")
 @login_required
 def chat_users(request):
-    users = User.objects.all()
-    return render(request, 'base.html', {
-        'users':users
+    current_user = request.user
+    user_follow = Relationship.objects.filter(to_user=current_user)
+    return render(request, 'chat/room.html', {
+        'user_follow': user_follow, 
     })
 
 
