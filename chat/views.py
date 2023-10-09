@@ -99,7 +99,6 @@ def chat_users(request):
 @login_required
 def videocall(request): 
     try:
-        name = request.GET.get('name', '')  # Nombre de la sala
         current_user = request.user  # Usuario autenticado
 
         # Obtiene una lista de usuarios disponibles (excluyendo al usuario autenticado)
