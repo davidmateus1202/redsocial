@@ -1,7 +1,8 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import Producto
 from categoria.models import Categoria
 from django.contrib.auth.decorators import login_required
+from .form import ProductoForm
 
 
 def store(request, categoria_nombre_categoria=None):
@@ -32,6 +33,18 @@ def detalle_producto(request, categoria_nombre_categoria=None, nombre_producto=N
     return render(request, 'store/detalle_producto.html', content)
   
 
-def publicar_2(request):
-    return render(request, 'store/publicacion.html')
+def publicar(request):
+
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('store')
+    else:
+        form = ProductoForm()
+    context = {
+        'form':form
+    }
+        
+    return render(request, 'store/publicacion.html', context)
 

@@ -2,7 +2,19 @@
 
 {% block content %}
 
+<style>
+    .form-floating {
+        width: 50%;
+        margin: 0 auto;
+    }
+</style>
 
-
+<div class="form-floating mb-3">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p}}
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
 {% endblock %}
 
