@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Producto(models.Model):
-    #user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='publicaciones')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='publicaciones')
     nombre_producto = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
     descripcion = models.TextField(max_length=255, blank=True)

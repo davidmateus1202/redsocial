@@ -1,0 +1,8 @@
+body {
+    background: #fff;
+  }
+  
+  .card-project:hover {
+    border: 1px solid #eee;
+    cursor: pointer;
+  }

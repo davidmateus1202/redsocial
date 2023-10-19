@@ -34,7 +34,6 @@ def detalle_producto(request, categoria_nombre_categoria=None, nombre_producto=N
   
 
 def publicar(request):
-
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -47,4 +46,7 @@ def publicar(request):
     }
         
     return render(request, 'store/publicacion.html', context)
+
+def perfil(request):
+    return render(request, 'store/perfil_store.html')
 

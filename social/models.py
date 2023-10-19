@@ -22,7 +22,7 @@ class Profile(models.Model):
         return User.objects.filter(id__in =user_ids)
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts',null=False)
     image = models.ImageField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
     likes = models.PositiveIntegerField(default=0, blank=True)
