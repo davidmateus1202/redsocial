@@ -29,9 +29,9 @@
 	{% for product in products %}
 	<div class="col-md-3">
 		<div class="card card-product-grid">
-			<a href="./product-detail.html" class="img-wrap"><img src="{{ product.product_image.url }}">  </a>
+			<a href="{{ product.get_url }}" class="img-wrap"><img src="{{ product.product_image.url }}">  </a>
 			<figcaption class="info-wrap">
-				<a href="{{ producto.get_url }}" class="title">{{ product.nombre_producto }}</a>
+				<a href="{{ product.get_url }}" class="title" style="text-decoration: none; cursor: pointer;">{{ product.nombre_producto }}</a>
 				<div class="price mt-1">{{ product.precio }}</div> <!-- price-wrap.// -->
 			</figcaption>
 		</div>

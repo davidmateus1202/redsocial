@@ -1,9 +1,5 @@
 {% load static %}
 
-<h2>
-    {{ request.user.username }}
-
-</h2>
 <header class="section-header">
     <nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
     <div class="container">
@@ -13,11 +9,11 @@
       <div class="collapse navbar-collapse" id="navbarTop4">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a href="{% url 'feed' %}" class="nav-link">Feed</a>
+                <a href="{% url 'feed' %}" class="nav-link">Feed</a> 
                 
             </li>
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link"> USD </a>
+                <a href="{% url 'perfil' %}" class="nav-link"> Perfil </a>
             </li>
         </ul>
         <ul class="navbar-nav">
@@ -65,9 +61,9 @@
         <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
                     <div class="d-flex justify-content-end mb-3 mb-lg-0">
                         <div class="widget-header">
-                            <small class="title text-muted">Welcome guest!</small>
+                            <small class="title text-muted" style="justify-content: center;">Vende y compra ya!</small>
                             <div> 
-                                <a href="./signin.html">Sign in</a> <span class="dark-transp"> | </span>
+                                <a href="{% url 'perfil' %}">Perfil</a> <span class="dark-transp"> | </span>
                                 <a href="{% url 'publicar' %}">Publicar</a>
                             </div>
                         </div>

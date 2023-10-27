@@ -2,7 +2,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import Producto
 from categoria.models import Categoria
 from django.contrib.auth.decorators import login_required
-from .form import ProductoForm
+from .form import ProductoForm, PerfilVentaForm
+from django.contrib.auth.models import User
 
 
 def store(request, categoria_nombre_categoria=None):
@@ -34,10 +35,13 @@ def detalle_producto(request, categoria_nombre_categoria=None, nombre_producto=N
   
 
 def publicar(request):
+    current_user = get_object_or_404(User, pk = request.user.pk)
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            producto = form.save(commit=False)
+            producto.user = current_user
+            producto.save()
             return redirect('store')
     else:
         form = ProductoForm()
@@ -47,6 +51,49 @@ def publicar(request):
         
     return render(request, 'store/publicacion.html', context)
 
-def perfil(request):
-    return render(request, 'store/perfil_store.html')
+def perfil(request, username=None):
+    current_user = request.user
+    if username and username != current_user:
+        user = User.objects.get(username=username)
+        posts = user.publicaciones.all()
+    else:
+        posts = current_user.publicaciones.all()
+        user = current_user
+    try:
+        perfil_vendedor = PerfilVentas.objects.get(user=current_user)
+    except PerfilVentas.DoesNotExist:
+        perfil_vendedor = None
 
+    context = {
+        'posts': posts,
+        'user': user,
+        'perfil_vendedor': perfil_vendedor,
+    }
+    return render(request, 'store/perfil_store.html', context)
+
+
+from .models import PerfilVentas
+
+def editar_perfil(request):
+    try:
+        perfil_vendedor = PerfilVentas.objects.get(user=request.user)
+    except PerfilVentas.DoesNotExist:
+        perfil_vendedor = None
+
+    if request.method == 'POST':
+        form = PerfilVentaForm(request.POST, instance=perfil_vendedor)
+        if form.is_valid():
+            perfil_vendedor = form.save(commit=False)
+            perfil_vendedor.user = request.user
+            perfil_vendedor.save()
+            return redirect('perfil')
+    else:
+        form = PerfilVentaForm()
+    
+    print(perfil_vendedor)
+    context = {
+        'perfil_vendedor': perfil_vendedor,
+        'form': form,
+        
+    }
+    return render(request, 'store/editar_perfil.html', context)

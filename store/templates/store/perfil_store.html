@@ -11,6 +11,7 @@
     margin-right: 10%;
   }
   #photo_perfil{
+    border: solid 3px #0D6EFD;
     margin-left: 100px;
     margin-top: 20px;
     width: 300px;
@@ -19,55 +20,66 @@
     overflow: hidden;
     
   }
+  .section-content{
+    width: 60%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
 
 </style>
 
 <!-- Hero Section -->
 <header id="container_perfil" class="row">
   <div class="col-md-3">
-    <img  id="photo_perfil" src="{% static 'images/avatars/profile.jpeg' %}" />
+    <img  id="photo_perfil" src="{{ user.profile.image.url }}" />
   </div>
 
   <div class="col-md-8 my-auto p-4">
-    <h1>I am <strong>Ryan Ray</strong></h1>
-    <h3>I'm a Python FullStack Developer</h3>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis tempora perspiciatis molestias iusto ducimus
-      soluta mollitia ratione, fuga praesentium, reiciendis minima! Facere, veniam! Omnis, quod molestias quo fugit enim
-      vero vitae, cumque tenetur at, impedit provident dicta laudantium quia facilis consequuntur blanditiis iste
-      laborum voluptatibus libero doloribus? Pariatur voluptatem obcaecati deserunt aperiam exercitationem nam voluptas
-      rerum reprehenderit minima, earum impedit saepe eos ducimus fugit itaque a nulla omnis architecto laudantium
-      blanditiis? Eius ipsum quidem enim architecto fugiat porro inventore libero praesentium aperiam nulla
-      exercitationem nemo soluta, culpa impedit est et doloribus ut necessitatibus odit, dicta voluptate! Vero ab nulla
-      placeat.</p>
-    <a class="btn btn-primary btn-lg rounded-0 my-3" href="{% static 'portfolio/cv.pdf' %}">Download my CV</a>
+    <h1>Yo soy <strong>{{ perfil_vendedor }}</strong></h1>
+    <h3>{{ perfil_vendedor.descripcion_venta }}</h3>
+    <p>{{ perfil_vendedor.biografia_venta }}</p>
+    <a class="btn btn-primary btn-lg rounded-0 my-3" href="{% url 'editar_perfil' %}">Editar mi perfil</a>  
   </div>
 </header>
 
 <!-- Porfolio Section -->
 <div class="row my-4 text-center">
 
-  <h3>My Projects</h3>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, aperiam?</p>
-
-  {% for project in projects %}
-    <div class="col-md-4 p-4">
-      <div class="card bg-black card-project">
-        <img src="{{project.image.url }}" class="card-img-top" />
-
-        <div class="card-body">
-
-          <h3 style="color: #fff;">{{ project.title }}</h3>
-          <p style="color: #fff;">{{ project.description }}</p>
-
-          {% if project.url %}
-          <a href="{{project.url}}" class="btn btn-primary btn-sm" target="__blank" rel="noreferrer" style="border-radius: 8px;">Visit the
-            Project</a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  {% endfor %}
+  <h3>Mis Productos</h3>
+  <p>Estos son todos los productos que tienes disponibles</p>
 </div>
+
+<section class="section-content padding-y">
+
+  <div class="row">
+    {% for product in posts %}
+        <div class="col-md-4">
+            <figure class="card card-product-grid">
+                <div class="img-wrap"> 
+                    
+                    <img src="{{ product.product_image.url }}">
+                    
+                </div> <!-- img-wrap.// -->
+                <figcaption class="info-wrap">
+                    <div class="fix-height">
+                        <a href="{{ product.get_url }}" class="title">{{ product.nombre_producto }}</a>
+                        <div class="price-wrap mt-2">
+                            <span class="price">{{ product.precio }}</span>
+                        </div> <!-- price-wrap.// -->
+                    </div>
+                    {% if username == request.username %}
+                      <a href="#" class="btn btn-block btn-primary">Editar publicacion</a>
+                    {% else %} 
+                      <a href="#" class="btn btn-block btn-primary">Comprar ahora</a> 
+                    {% endif %}
+                </figcaption>
+            </figure>
+        </div>
+    {% endfor %}
+  </div>
+
+</section>
+
 
 
 {% endblock %}

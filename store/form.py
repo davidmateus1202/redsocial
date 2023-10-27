@@ -1,6 +1,6 @@
 from django import forms
 from  categoria.models import Categoria
-from .models import Producto
+from .models import Producto, PerfilVentas
 
 
 class ProductoForm(forms.ModelForm):
@@ -53,3 +53,34 @@ class ProductoForm(forms.ModelForm):
         model = Producto
         fields = ['nombre_producto', 'slug', 'descripcion', 'precio', 'stock', 'categoria', 'product_image']
         help_texts = {k: "" for k in fields}
+
+
+class PerfilVentaForm(forms.ModelForm):
+
+    nombre_vendedor = forms.CharField(widget=forms.TextInput(attrs={
+
+        'class': 'form-control',
+        'id':'floatingInput',
+        'type':'text',
+
+    }), required=True)
+
+    descripcion_venta = forms.CharField(widget=forms.TextInput(attrs={
+
+        'class': 'form-control',
+        'id':'floatingarea',
+        'type':'text',
+
+    }), required=True)
+
+    biografia_venta = forms.CharField(widget=forms.Textarea(attrs={
+
+        'class': 'form-control',
+        'id':'floatingarea3',
+        'type':'text',
+            
+    }), required=True)
+
+    class Meta:
+        model = PerfilVentas
+        fields = ['nombre_vendedor', 'descripcion_venta', 'biografia_venta']

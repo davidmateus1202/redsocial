@@ -5,6 +5,16 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class PerfilVentas(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfilventas')
+    nombre_vendedor = models.CharField(max_length=50, default='Editar nombre de vendendor')
+    descripcion_venta = models.TextField(max_length=255, blank=True, default='Editar descripcion de vendendor')
+    biografia_venta = models.TextField(max_length=255, blank=True, default='Editar biografia de vendendor')
+
+    def __str__(self):
+        return self.nombre_vendedor
+
 class Producto(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='publicaciones')
     nombre_producto = models.CharField(max_length=50)
