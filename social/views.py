@@ -1,4 +1,5 @@
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
@@ -8,8 +9,12 @@ from django.contrib.auth.decorators import login_required
 from store.models import Producto
 
 
+
+
 def feed(request):
+
     posts = Post.objects.all()
+
     form = PostForm()
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -25,6 +30,7 @@ def feed(request):
         'form':form
     }
     return render(request, 'social/feed.html', context)
+
 
 
 def register(request):
@@ -145,6 +151,26 @@ def updated_profile(request):
         'form_1':form_1
     }
     return render(request, 'social/actualizar.html', context)
+
+
+def likes(request, post_id):
+    user = request.user
+    post = Post.objects.get(id=post_id)
+    current_likes = post.likes
+    liked = Like.objects.filter(user=user, post=post).exists()
+
+    if liked:
+        Like.objects.filter(user=user, post=post).delete()
+        current_likes = current_likes - 1
+    else:
+        like = Like(user=user, post=post)
+        like.save()
+        current_likes = current_likes + 1
+
+    post.likes = current_likes
+    post.save()
+    return redirect('feed')
+
 
 def marketplace(request):
     products = Producto.objects.all().filter(is_available=True)

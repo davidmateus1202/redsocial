@@ -23,6 +23,7 @@ urlpatterns = [
     path('actualizar/', views.updated_profile, name='actualizar'),
     path('delet/<int:post_id>', views.delete, name='delete'),
     path('marketplace/', views.marketplace, name='marketplace'),
+    path('like/<int:post_id>', views.likes, name='likes'),
 
 
 

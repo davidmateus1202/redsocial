@@ -19,7 +19,7 @@ class Producto(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='publicaciones')
     nombre_producto = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
-    descripcion = models.TextField(max_length=255, blank=True)
+    descripcion = models.TextField(max_length=1000, blank=True)
     precio = models.IntegerField()
     stock = models.IntegerField()
     is_available = models.BooleanField(default=True)

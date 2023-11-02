@@ -108,28 +108,16 @@
                 </div>
                 <div class="action-buttons">
                     <div class="interaction-buttons">
-                        <span><i class='bx bx-heart'></i></span>
-                        <span><i class='bx bx-message-rounded-dots'></i></span>
-                        <span><i class='bx bx-share bx-flip-horizontal' ></i></span>
-
-                    </div>
-                    <div class="bookmark">
-                        <span><i class='bx bx-bookmark'></i></span>
+                        
+                        <span><a href="{% url 'likes' post.id %}"><i class='bx bx-heart' style='color:#6440f2' ></i></a></span>
+                            
+                        <span><a href="{% url 'comentarios:post_detail' post.id %}"><i class='bx bx-message-rounded-dots'></i></a></span>
+                        
                     </div>
 
                 </div>
                 <div class="liked-by">
-                    <span><img src="./images/profile-10.jpg" ></span>
-                    <span><img src="./images/profile-2.jpg" ></span>
-                    <span><img src="./images/profile-3.jpg" ></span>
-                <p>Le gusta a <b>David Mateus</b>y <b>226 personas mas</b></p>
-                </div>
-
-                <div class="caption">
-                    <p><b>David Mateus</b> Hermosa vivienda para una familia amplia. <span class="harsh-tag">#ventarapida</span></p>
-                </div>
-                <div class="comments text-muted">
-                    150 comentarios
+                <p>Le gusta a <b>{{ post.likes }} personas mas</b></p>
                 </div>
 
             </div>

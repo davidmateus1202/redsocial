@@ -1,0 +1,109 @@
+{% extends 'layout.html' %}
+
+
+{% load humanize %}
+{% block content %}
+
+
+<div class="feeds">
+    <div class="feed">
+        <div class="head">
+            <div class="user">
+                <div class="profile-photo">
+                    <img src="{{ post.user.profile.image.url }}">
+
+                </div>
+                <div class="ingo">
+                    <h3><a href="{% url 'profile' post.user.username %}">{{post.user.username}}</a></h3>
+                    <small>{{post.time|naturaltime}}</small>
+                    <div class="post">{{post.content}}</div>
+                    <div class="post">{{crear_post.content}}</div>
+                </div>
+            
+            </div>
+            {% if request.user == post.user %}
+            <span class="edit">
+                <a href="{% url 'delete' post.id %}"><i class='bx bx-x'></i></a>
+                
+            </span>
+            {% endif %}
+
+        </div>
+
+        <div class="photo">
+            {% if post.image.url != null %}
+                <img id="imagen_post" src="{{ post.image.url}}" >
+            {% endif %}
+        </div>
+        <div class="action-buttons">
+            <div class="interaction-buttons">
+                {% if liked %}
+                    <span><a href="{% url 'likes' post.id %}"><i class='bx bxs-heart' style='color:#6440f2' ></i></a></span>
+                    
+                {% else %}
+                    <span><a href="{% url 'likes' post.id %}"><i class='bx bx-heart' style='color:#6440f2' ></i></a></span>
+                {% endif %}
+
+            </div>
+
+
+        </div>
+        <div class="liked-by">
+        <p>Le gusta a <b>{{ post.likes }} personas mas</b></p>
+        </div>
+
+        <div class="comments text-muted">
+            {{ comentarios.count }} comentarios
+
+        </div>
+
+        {% for comentario in comentarios %}
+            <div class="head mt-4">
+                <div class="user">
+                    <div class="profile-photo">
+                        <img src="{{ comentario.user.profile.image.url }}">
+
+                    </div>
+                    <div class="ingo">
+                        <h3 style="font-size: 12px;"><a href="{% url 'profile' post.user.username %}">{{comentario.user.username}}</a></h3>
+                        <small style="font-size: 10px;">{{comentario.time|naturaltime}}</small>
+                        <div class="post">{{comentario.text}}</div>
+                    </div>
+                
+                </div>
+                {% if request.user == comentario.user %}
+                <span class="edit">
+                    <a href="{% url 'comentarios:delete_comment' comentario.id %}"><i class='bx bx-x'></i></a>
+                    
+                </span>
+                {% endif %}
+
+            </div>
+            <hr>
+        {% endfor %}
+
+    </div>
+
+    <div class="create-post">
+        <form class="mt-4" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ form.text}}
+            <button class="btn btn-primary mt-4" type="submit" class="submit">
+                Comentar
+            </button>
+        </form>
+    </div>
+
+
+</div>
+
+<script>
+    
+</script>
+    
+
+
+
+
+{% endblock %}

@@ -25,7 +25,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts',null=False)
     image = models.ImageField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
-    likes = models.PositiveIntegerField(default=0, blank=True)
+    likes = models.IntegerField(default=0)
     time = models.DateTimeField(default=timezone.now)
     class Meta:
 
@@ -48,3 +48,9 @@ class Relationship(models.Model):
             models.Index(fields=['from_user','to_user',]),
 
         ] 
+
+class Like(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_likes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
+
