@@ -86,3 +86,6 @@ def cart(request, total=0, cantidad=0, cart_items=None):
 
 
     return render(request, 'tarjetas/cart.html', context)
+
+def checkout(request):
+    return render(request, 'tarjetas/checkout.html')

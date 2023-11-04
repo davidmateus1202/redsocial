@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .form import ProductoForm, PerfilVentaForm
 from django.contrib.auth.models import User
 from tarjetas.models import CartItem
-
+from tarjetas.views import _cart_id
 
 def store(request, categoria_nombre_categoria=None):
     cart_items = CartItem.objects.all()
@@ -29,10 +29,15 @@ def store(request, categoria_nombre_categoria=None):
 def detalle_producto(request, categoria_nombre_categoria=None, nombre_producto=None):
     try:
         products = Producto.objects.get(categoria__nombre_categoria=categoria_nombre_categoria, nombre_producto=nombre_producto)
+        # Busca el producto relacionado con la categoría y el nombre específicos.
+        producto = get_object_or_404(Producto, categoria__nombre_categoria=categoria_nombre_categoria, nombre_producto=nombre_producto)
+
+        in_cart = CartItem.objects.filter(cart__cart_id = _cart_id(request), producto = producto).exists()
     except Exception as e:
         raise e
     content = {
-        'products': products
+        'products': products,
+        'in_cart': in_cart,
     } 
     return render(request, 'store/detalle_producto.html', content)
   
