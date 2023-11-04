@@ -4,9 +4,11 @@ from categoria.models import Categoria
 from django.contrib.auth.decorators import login_required
 from .form import ProductoForm, PerfilVentaForm
 from django.contrib.auth.models import User
+from tarjetas.models import CartItem
 
 
 def store(request, categoria_nombre_categoria=None):
+    cart_items = CartItem.objects.all()
     categoria = None
     products = None
     if categoria_nombre_categoria != None:
@@ -19,7 +21,8 @@ def store(request, categoria_nombre_categoria=None):
     
     content = {
         'products': products,
-        'numero_productos': numero_productos
+        'numero_productos': numero_productos,
+        'cart_items': cart_items,
     }
     return render(request, 'store/store.html', content)
 

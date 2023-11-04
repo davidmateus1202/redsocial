@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'marketplace',
     'categoria',
     'store',
-    'comentarios'
+    'comentarios',
+    'tarjetas',
 
     
 ]

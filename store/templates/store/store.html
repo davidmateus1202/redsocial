@@ -25,7 +25,7 @@
             <header class="card-header">
                 <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
                     <i class="icon-control fa fa-chevron-down"></i>
-                    <h6 class="title">Categories</h6>
+                    <h6 class="title">Categorias</h6>
                 </a>
             </header>
             <div class="filter-content collapse show" id="collapse_1" style="">
@@ -142,7 +142,7 @@
                                 <span class="price">{{ product.precio }}</span>
                             </div> <!-- price-wrap.// -->
                         </div>
-                        <a href="#" class="btn btn-block btn-primary">Added to cart </a>
+                        <a href="{% url 'add_cart' product.id %}" class="btn btn-block btn-primary">Añadir al carrito</a>
                     </figcaption>
                 </figure>
             </div>

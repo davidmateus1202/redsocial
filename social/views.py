@@ -7,6 +7,7 @@ from django.contrib import messages
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from store.models import Producto
+from tarjetas.models import CartItem
 
 
 
@@ -173,9 +174,12 @@ def likes(request, post_id):
 
 
 def marketplace(request):
+    cart_items = CartItem.objects.all()
     products = Producto.objects.all().filter(is_available=True)
     content = {
-        'products': products
+        'products': products,
+        'cart_items': cart_items,
+
     }
     return render(request, 'index.html', content)
     
