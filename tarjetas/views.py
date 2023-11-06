@@ -6,11 +6,15 @@ from django.http import FileResponse
 from django.shortcuts import render
 from io import BytesIO
 from django.http import HttpResponse
+from django.templatetags.static import static
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import Spacer
 from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
 
 def _cart_id(request):
     cart = request.session.session_key
@@ -137,6 +141,10 @@ class PDFReceiptBuilder:
         title = Paragraph(self.title, title_style)
         self.elements.append(title)
 
+        # Agregar una imagen al documento PDF
+        
+
+
         # Agregar información del carrito al recibo
         cart_info = f"Total: {self.total}, Cantidad: {self.cantidad}"
         cart_info_paragraph = Paragraph(cart_info, styles["Normal"])
@@ -147,8 +155,14 @@ class PDFReceiptBuilder:
             item_style = styles["Bullet"]
             for item in self.cart_items:
                 item_info = f"Producto: {item.producto.nombre_producto}, Cantidad: {item.cantidad}"
+                image_path = "{item.producto.product_image.url}"  # Reemplaza con la ruta de tu imagen
+                print(image_path)
+                image = Image(image_path, width=200, height=100)  # Especifica el ancho y alto deseados
                 item_paragraph = Paragraph(item_info, item_style)
-                self.elements.append(item_paragraph)
+                self.elements.append(image)  # Agrega la imagen
+                self.elements.append(Spacer(1, 12))  # Agrega espacio entre la imagen y el párrafo
+                self.elements.append(item_paragraph)    
+                
 
         doc.build(self.elements)
 
@@ -187,4 +201,5 @@ def generate_pdf_receipt(request, total=0, cantidad=0, cart_items=None):
     response.write(pdf_buffer)
 
     return response
+
 
