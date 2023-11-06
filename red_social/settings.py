@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-g*52r14_%pd(97md)i4)4+@f3d^s2hw8%e_$ntc8k-wj@b4%)2
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['10.13.128.121','127.0.0.1','10.13.89.32','255.255.255.0']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -94,7 +94,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME':'red_social',
-        'NAME':'red_social3',
+        'NAME':'red_social',
         'USER':'postgres',
         'PASSWORD':'12345678',
         'HOST':'localhost',

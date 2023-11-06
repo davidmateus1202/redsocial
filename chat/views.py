@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render, redirect
 
-from social.models import Relationship
+from social.models import Post, Relationship
 from .form import RoomForm
 from .models import *
 from django.contrib.auth.models import User
@@ -17,20 +17,30 @@ from django.contrib.auth.models import User
 import random 
 import time
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
-from django.db.models import Q
-@login_required
 def room(request, room_id):
     current_user = request.user
-    user_follow = Relationship.objects.filter(to_user=current_user)
+    user_id_to_find = request.session['user_id_to_find']
+    user_to_find = User.objects.get(id=user_id_to_find)
+
+ # Obtén las relaciones de los usuarios que sigue el usuario actual.
+    user_follow_relationships = Relationship.objects.filter(from_user=current_user)
+
+    # Obten una lista de los usuarios seguidos por el usuario actual.
+    users_followed = [relationship.to_user for relationship in user_follow_relationships]
+
+
     try:
         room = request.user.rooms_joined.get(id=room_id)
     except:
         return HttpResponseForbidden()
+
     content = {
         'room': room,
-        'user_follow': user_follow,
+        'user_follow': users_followed,
+        'userRegister': user_to_find,
     }
-    return render(request, 'chat/room.html', content)
+
+    return render(request, 'chat/room.html', content,)
 
 # views.py
 def room_detail(request, room_id):
@@ -44,7 +54,7 @@ def create_room(request):
 
         # Obtén el ID del usuario seleccionado desde el parámetro user_id_to_find
         user_id_to_find = request.GET.get('user_id_to_find')
-
+        request.session['user_id_to_find'] = user_id_to_find
         # Convierte el ID del usuario seleccionado a un entero
         try:
             user_id_to_find = int(user_id_to_find)
@@ -97,56 +107,33 @@ def chat_users(request):
 
 
 @login_required
-def videocall(request): 
+def videocall(request):
     try:
-        current_user = request.user  # Usuario autenticado
+        # Verifica si la variable de sesión USER_ID_TO_FIND existe
+        try:
+            user_id_to_find = request.session['user_id_to_find']
+        except KeyError:
+            # La variable de sesión USER_ID_TO_FIND no existe
+            return HttpResponseBadRequest("No se encontraron usuarios disponibles.")
 
-        # Obtiene una lista de usuarios disponibles (excluyendo al usuario autenticado)
-        available_users = User.objects.exclude(id=current_user.id)
+        # Verifica si el usuario seleccionado existe
+        try:
+            user_to_find = User.objects.get(id=user_id_to_find)
+        except User.DoesNotExist:
+            # El usuario seleccionado no existe
+            return HttpResponseBadRequest("No se encontraron usuarios disponibles.")
 
-        if available_users:
-            # Selecciona aleatoriamente un usuario de la lista
-            user_to_find = random.choice(available_users)
+        # Busca las salas de ambos usuarios
+        rooms_of_current_user = Room.objects.filter(users=request.user)
+        rooms_of_user_to_find = Room.objects.filter(users=user_to_find)
 
-            # Agrega un sufijo único al nombre de la sala (por ejemplo, un timestamp)
-            rooms_of_current_user = Room.objects.filter(users=current_user.id)
-            rooms_of_user_to_find = Room.objects.filter(users=user_to_find.id)
-
-            # Encuentra la sala común entre los dos usuarios (si existe)
-            common_room = rooms_of_current_user.intersection(rooms_of_user_to_find).first()
-            
-            if common_room:
-                print(request.user.username)
-                return render(request, 'videocam.html', {'name': request.user.username, 'room': common_room.id})
-                
-    except json.JSONDecodeError:
-        return JsonResponse({'message': 'Error en el formato JSON.'}, status=400)
-
-    return HttpResponseBadRequest("No se encontraron usuarios disponibles.")
-
-@login_required
-def call(request): 
-    try:
-        name = request.GET.get('name', '')  # Nombre de la sala
-        current_user = request.user  # Usuario autenticado
-
-        # Obtiene una lista de usuarios disponibles (excluyendo al usuario autenticado)
-        available_users = User.objects.exclude(id=current_user.id)
-
-        if available_users:
-            # Selecciona aleatoriamente un usuario de la lista
-            user_to_find = random.choice(available_users)
-
-            # Agrega un sufijo único al nombre de la sala (por ejemplo, un timestamp)
-            rooms_of_current_user = Room.objects.filter(users=current_user.id)
-            rooms_of_user_to_find = Room.objects.filter(users=user_to_find.id)
-
-            # Encuentra la sala común entre los dos usuarios (si existe)
-            common_room = rooms_of_current_user.intersection(rooms_of_user_to_find).first()
-            
-            if common_room:
-                print(request.user.username)
-                return render(request, 'llamadavoz.html', {'name': request.user.username, 'room': common_room.id})
+        # Encuentra la sala común entre los dos usuarios (si existe)
+        common_room = rooms_of_current_user.intersection(rooms_of_user_to_find).first()
+        
+        if common_room:
+            print(request.user.username)
+            name = user_to_find.username
+            return render(request, 'videocam.html', {'name': name, 'room': common_room.id})
                 
     except json.JSONDecodeError:
         return JsonResponse({'message': 'Error en el formato JSON.'}, status=400)
