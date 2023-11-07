@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'store',
     'comentarios',
     'tarjetas',
-    'cuenta'
+    'django_extensions',
 
     
 ]
@@ -161,6 +161,11 @@ CHANNEL_LAYERS = {
             "hosts": [("localhost", 6379)],
         },
     },
+}
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
 }
 
 
