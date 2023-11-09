@@ -48,7 +48,6 @@ class PostForm(forms.ModelForm):
         widgets = {
             'image': forms.ClearableFileInput(attrs={'class': 'imagen'})
         }
-
 class updated_user(forms.ModelForm):
 
     username = forms.CharField(label='', widget=forms.TextInput(attrs={
@@ -71,13 +70,15 @@ class updated_user(forms.ModelForm):
 
 
 class profile_updated(forms.ModelForm):
+
     class Meta:
         model = Profile
         fields = ['image']
-        widgets = {
-            'image': forms.ClearableFileInput(attrs={'class': 'imagen'}),
 
+        widgets = {
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'})
         }
+        
 
     def clean_content(self):
         content = self.cleaned_data.get('content', '')

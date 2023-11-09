@@ -94,7 +94,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME':'red_social',
-        'NAME':'red_social',
+        'NAME':'red_social3',
         'USER':'postgres',
         'PASSWORD':'12345678',
         'HOST':'localhost',

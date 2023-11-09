@@ -41,28 +41,43 @@
         padding: 15px;
         width: 70%;
     }
-
-    input[type="file"] {
-      display: none;
-    }
   </style>
   
-  <form class="post-content" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.image}}
-    {{form_1.as_p}}
-    <label for="custom-upload" class="custom-upload-button" ><i class='bx bx-search'></i></label>
-    <input type="file" id="custom-upload" name="image" style="display: none;">
+  <style>
+    #floatingarea3{
+        width: 100%;
+    }
+</style>
 
-    
-    <button class="submit" type="submit">Enviar</button>
-  </form>
+<section class="section-content padding-y">
+  <div class="card mx-auto" style="max-width:100%; margin-top: 0;">
+      <article class="card-body">
+          <header class="mb-4"><h4 class="card-title">Actualizar Informacion</h4></header>
+          <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-row">
+                  <div class="col form-group">
+                      {{ form_1.username.label_tag }}
+                      {{ form_1.username }}
+                  </div>
+              </div>
+              <div class="form-group">
+                  {{ form_1.email }}
+                  <small class="form-text text-muted">Actualiza tu Email!</small>
+              </div>
+              <div class="form-row">
+                  <div class="col form-group">
+                      {{ form.image }}
+                  </div>
+              </div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+              </div>
+          </form>
+      </article>
+  </div>
+</section>
 
-  <script>
-    document.querySelector('.custom-upload-button').addEventListener('click', function() {
-    document.getElementById('custom-upload').click();
-    });
-  </script>
 
 
 {% endblock %}

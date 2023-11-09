@@ -102,8 +102,6 @@ def profile(request, username = None):
         'posts':posts,
         'user':user
     }
-    
-
     return render(request, 'social/profile.html', context)
 
 def follow(request, username):
@@ -152,6 +150,7 @@ def updated_profile(request):
         'form_1':form_1
     }
     return render(request, 'social/actualizar.html', context)
+
 
 
 def likes(request, post_id):

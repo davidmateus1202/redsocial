@@ -1,9 +1,102 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easyrent</title>
+    <link rel="shortcut icon" href="./imgaes/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./CSS/normalize.css">
+    <link href="{% static 'css/estilos.css' %}" rel="stylesheet" type="text/css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
-{% block content %}
+</head>
+<body>
+    <header class= "hero"> 
+        <nav class = "nav container"> 
+            <div class = "nav__logo"> 
+                <h2 class = "nav__title">Easyrend </h2>
 
-<h1>
-    Te has desconectado
-</h1>
+            </div>
 
-{% endblock %}
+            <ul class="nav__link nav__link--menu">
+               <li class="nav__item">
+                    <a href="{% url 'loguin' %}" class="nav__links">Iniciar Sesion</a>
+               </li> 
+            </ul>
+
+            <div class="nav__menu">
+                <img src="./images/menu.svg" class="nav__img">
+
+            </div>
+        </nav>
+
+        <section class="hero__container container">
+            <h1 class="hero__title">Easyrend</h1>
+            <p class="hero__paragraph">Vive la mejor experiencia y conoce mas gente</p>
+            <a href="{% url 'register' %}" class="cta" >Registrate ahora</a>
+        </section>
+    </header
+
+    
+     
+
+<main>
+<section class="container about">
+    <div class="about">
+        <h2 class="subtitle">Únete a nuestra emocionante red social y descubre un mundo de posibilidades. Conéctate con personas afines, ¡Tu comunidad te espera!</h2>
+        <p class="about__paragraph"> Todo lo que necesitas en un solo lugar. (Conoce, expresate, comparte, aprende y diviertete)
+   
+       </p>
+
+    </div>
+
+     <div class="about__main">
+        <article class="about__icons">
+        <i class='bx bxs-user-pin bx-tada' style='color:#6d4ce6; font-size: 100px;'></i>
+        <h3 class="about__title">Busqueda personalizada</h3>
+        <p class="about__paragraph">Diviertete y conoce a muchas personas mas</p>
+        </article>
+
+        <article class="about__icons">
+            <i class='bx bxs-message-rounded-dots bx-tada' style='color:#6d4ce6; font-size: 100px;' ></i>
+        <h3 class="about__title">Chatea con tus amigos</h3>
+        <p class="about__paragraph">Ten las mejores conversaciones con tus amigos mas cercanos</p>
+        </article>
+
+        <article class="about__icons">
+        <i class='bx bxl-instagram bx-tada' style='color:#6d4ce6; font-size: 100px;' ></i>
+        <h3 class="about__title">Expresate con tus mejores</h3>
+        <p class="about__paragraph">Postea y expresa tus opiniones a todos tus amigos</p>
+        </article>
+
+    </div>
+
+ </section>
+
+ <section class="knowledge">
+    <div class="knowledge__container container">
+        <div class="knowledege__texts">
+            <h2 class="subtitle">Easyrend !Tu alternativa mas confiable!</h2>
+            <p class="knowledge__paragraph">Nuestra red social se destaca por su confiabilidad
+                 incomparable. Garantizamos la privacidad de tus datos, autenticación
+                  segura y una comunidad comprometida en mantener un ambiente amigable y
+                   libre de contenido inapropiado. Tu confianza es nuestra prioridad.</p>
+
+            <a href="{% url 'loguin' %}" class="cta">Publica ya</a>
+        </div>
+
+    <figure class="knowledge__picture">
+        <img src="{% static 'MacBook Air.png' %}" class="knowledge__img">
+    </figure>   
+    </div>
+
+
+ </section>
+</main>
+
+
+</body>
+</html>

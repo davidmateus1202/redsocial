@@ -63,7 +63,7 @@
 
             <div class="usuario">
                 <div class="avatar">
-                    <img src="{{ user.profile.image.url }}" alt="img">
+                    <img src="{{ user.profile.image.url }}" alt="img" height="50px" width="50px">
                     <span class="estado-usuario enlinea"></span>
                 </div>
                 <div class="cuerpo">     
@@ -73,6 +73,14 @@
                             {% csrf_token %}
                             
                             {{ user.from_user.username }}
+                            
+                        </a>
+                        <a href="{% url 'chat:create_room' %}?user_id_to_find={{ user.id }}"
+                        style="text-decoration: none; font-size: 17px; color: #BEBEBE; font-weight: bold;"
+>
+                            {% csrf_token %}
+                            
+                            {{ user.username }}
                             
                         </a>
                             
@@ -91,30 +99,29 @@
     </div>
 </div>
 <div class="seccion-chat">
-    <div class="usuario-seleccionado">
-        <div class="avatar">
-            <img src="./images/profile-10.jpg" alt="img">
-        </div>
-        <div class="cuerpo">
-            
-            <span>{{ user_follow.1.from_user.username }}</span>
-            <span>Activo - Escribiendo...</span>
-        </div>
-        <div class="opciones">
-            <ul>
-                <li>
-                    <form action="">
-                        <button type="button"><a href="{%url 'chat:call' %}" class="fas fa-video"></a></button>
+    <div class="seccion-chat">
+        <div class="usuario-seleccionado">
+            <div class="avatar">
+                <img src="{{ userRegister.profile.image.url }}" alt="img" height="50px" width="50px">
+            </div>
+            <div class="cuerpo">
+                
+                <span>{{userRegister.username }}</span>
+                <span>Activo - Escribiendo...</span>
+            </div>
+            <div class="opciones">
+                <ul>
+                    <li>
+                        <form action="">
+                            <button type="button"><a href="{%url 'chat:call' %}" class="fas fa-video"></a></button>
+                            
+                        </form>
                         
-                    </form>
+                    </li>
                     
-                </li>
-                <li>
-                    <button type="button"><a href="{%url 'chat:call_voz'%}" class="fas fa-phone-alt"></a></button>
-                </li>
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
     <div class="panel-chat">
         <div class="mensaje">
             <div id="chat" class="container">
