@@ -93,3 +93,7 @@ class PerfilVentaForm(forms.ModelForm):
     class Meta:
         model = PerfilVentas
         fields = ['nombre_vendedor', 'descripcion_venta', 'biografia_venta']
+
+
+
+

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from spanlp.palabrota import Palabrota
 from .models import *
 PALABRAS_PROHIBIDAS = ["mierda", "chet", "hp","gg","ez","nigga"]
 class UserRegisterForm(UserCreationForm):
@@ -48,6 +49,12 @@ class PostForm(forms.ModelForm):
         widgets = {
             'image': forms.ClearableFileInput(attrs={'class': 'imagen'})
         }
+    def clean_content(self):
+        content = self.cleaned_data.get('content', '')
+        palabraC = analisis(content)
+        print(palabraC)
+        return palabraC
+
 class updated_user(forms.ModelForm):
 
     username = forms.CharField(label='', widget=forms.TextInput(attrs={
@@ -70,15 +77,13 @@ class updated_user(forms.ModelForm):
 
 
 class profile_updated(forms.ModelForm):
-
     class Meta:
         model = Profile
         fields = ['image']
-
         widgets = {
-            'image': forms.ClearableFileInput(attrs={'class': 'form-control'})
+            'image': forms.ClearableFileInput(attrs={'class': 'imagen'}),
+
         }
-        
 
     def clean_content(self):
         content = self.cleaned_data.get('content', '')
@@ -89,3 +94,25 @@ class profile_updated(forms.ModelForm):
                 raise forms.ValidationError(f'La palabra o frase "{palabra_prohibida}" no está permitida en el contenido.')
 
         return content
+
+class StoryForm(forms.ModelForm):
+    image = forms.ImageField(label='', widget=forms.ClearableFileInput(attrs={
+        'class':'form-control',
+        'id':'floatingInput3',
+        'placeholder':'¿Qué estás pensando hoy?',
+        'rows':2
+    }))
+    class Meta:
+        model = Story
+        fields = ['image']
+
+
+def analisis(text):
+    # Crea una instancia del validador de palabras ofensivas
+    validador = Palabrota(censor_char='#')
+    
+    # Utiliza el validador para censurar palabras ofensivas en el texto
+    texto_censurado = validador.censor(text)
+    
+    # Devuelve el texto censurado
+    return texto_censurado

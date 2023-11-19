@@ -47,7 +47,25 @@
 	section{
 		margin-bottom: 100px;
 	}
+
+
 </style>
+
+
+
+
+<div class="create-post">
+	<form style="margin-top: 15px;" method="POST" enctype="multipart/form-data">
+
+		{% csrf_token %}
+		{{ form.image}}
+		<button style="margin-top: 15px; justify-content: center;" class="btn btn-primary" type="submit" class="submit">
+			Post
+		</button>
+	</form>
+	
+</div>
+
 {% for post in posts %}
 <!-------------------------------------------------publicaciones------------------->
 <div class="feeds">

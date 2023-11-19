@@ -23,42 +23,22 @@
 
     {% if request.user.is_authenticated %}
     <!---------------------------historias de inicio------------>
-        <div class="stories">
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/WhatsApp Image 2023-03-31 at 8.34.45 AM.jpeg">
+        <div class="stories" >
+            {% for story in stories|slice:":5" %}
+            <div class="story" style="background-image: url('{{ story.image.url }}')">
+                <div class="profile-photo2">
+                    <div class="profile-photo">
+                        <img src="{{ story.user.profile.image.url }}">
+
+                    </div>
+    
                 </div>
-                <p class="name">Tu Historia</p>
+                <p class="name">{{ story.user.username }} - {{ story.created_at|naturaltime }}</p>
 
             </div>
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/e1c07fc1-6778-41ad-8d17-16c4f0a3cc54.jpeg">
-                </div>
-                <p class="name">David Mateus</p>
+            {% endfor %}
 
-            </div>
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/istockphoto-621603944-612x612.jpg">
-                </div>
-                <p class="name">Liliana Mesa</p>
 
-            </div>
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/images (1).jpeg">
-                </div>
-                <p class="name">Andres Blanco</p>
-
-            </div>
-            <div class="story">
-                <div class="profile-photo">
-                    <img src="./images/pexels-wallace-chuck-2287252.jpg">
-                </div>
-                <p class="name">Fabian Castillo</p>
-
-            </div>
         </div>
         <!--------------------------fin de historias-->
 

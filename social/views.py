@@ -26,9 +26,15 @@ def feed(request):
             return redirect('feed')
     else:
         form = PostForm()
+
+    current_time = timezone.now()
+    stories = Story.objects.filter(created_at__gte=current_time - timezone.timedelta(days=1))
+
     context = {
         'posts':posts,
-        'form':form
+        'form':form,
+        'stories': stories,
+        
     }
     return render(request, 'social/feed.html', context)
 
@@ -98,10 +104,27 @@ def profile(request, username = None):
     else:
         posts = current_user.posts.all()
         user = current_user
+
+    if request.method == 'POST':
+        form = StoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            story = form.save(commit=False)
+            story.user = request.user
+            story.save()
+            messages.success(request, 'Tu historia se ha agregado exitosamente.')
+            return redirect('feed')  # Redirige a la página principal después de agregar la historia
+        else:
+            messages.error(request, 'Hubo un error en el formulario. Por favor, corrige los errores.')
+
+    form = StoryForm()
+    
+
     context = {
         'posts':posts,
-        'user':user
+        'user':user,
+        'form': form
     }
+
     return render(request, 'social/profile.html', context)
 
 def follow(request, username):
@@ -181,4 +204,6 @@ def marketplace(request):
 
     }
     return render(request, 'index.html', content)
-    
+
+
+

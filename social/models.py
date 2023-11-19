@@ -54,3 +54,16 @@ class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_likes')
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
 
+
+
+class Story(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='stories')
+    image = models.ImageField(null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    duration_days = models.IntegerField(default=1)  # Número de días que durará la historia
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def _str_(self):
+        return f'{self.user.username} Story - {self.created_at}'

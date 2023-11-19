@@ -180,6 +180,7 @@ class PDFReceiptBuilder:
         if self.cart_items:
             for item in self.cart_items:
                 item_info = f"Producto: {item.producto.nombre_producto}, Cantidad: {item.cantidad}"
+
                 item_paragraph = Paragraph(item_info, self.styles["CustomBullet"]) # Agrega la imagen # Agrega espacio entre la imagen y el párrafo
                 self.elements.append(item_paragraph) 
 

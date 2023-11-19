@@ -119,6 +119,7 @@ def videocall(request):
         # Verifica si el usuario seleccionado existe
         try:
             user_to_find = User.objects.get(id=user_id_to_find)
+            userlog = User.objects.get(id = request.user.id)
         except User.DoesNotExist:
             # El usuario seleccionado no existe
             return HttpResponseBadRequest("No se encontraron usuarios disponibles.")
@@ -132,7 +133,7 @@ def videocall(request):
         
         if common_room:
             print(request.user.username)
-            name = user_to_find.username
+            name = userlog.username
             return render(request, 'videocam.html', {'name': name, 'room': common_room.id})
                 
     except json.JSONDecodeError:

@@ -125,8 +125,9 @@
         <aside class="col-lg-9">
     
             <div class="card">
-            <div  class="card-body">
-                <a href="{% url 'generar_pdf_recibo' %}" class="btn btn-primary btn-block"> Place Oder </a>
+
+            <div class="card-body">
+                <button type="submit" name="submit" href="{% url 'generar_pdf_recibo' %}" class="btn btn-primary btn-block" >Place order</button>
                 <a href="{% url 'store' %}" class="btn btn-light btn-block">Continuar comprando</a>
             </div> <!-- card-body.// -->
             </div> <!-- card.// -->

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+import django_heroku
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +29,10 @@ SECRET_KEY = 'django-insecure-g*52r14_%pd(97md)i4)4+@f3d^s2hw8%e_$ntc8k-wj@b4%)2
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['d85a-181-51-34-57.ngrok-free.app','localhost', '127.0.0.1','mysite.com']
+
+CSRF_TRUSTED_ORIGINS = ['https://d85a-181-51-34-57.ngrok-free.app']
+
 
 
 # Application definition
@@ -94,7 +99,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME':'red_social',
-        'NAME':'red_social3',
+        'NAME':'red_social',
         'USER':'postgres',
         'PASSWORD':'12345678',
         'HOST':'localhost',
@@ -158,7 +163,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("localhost", 6379)],
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }
@@ -169,3 +174,4 @@ GRAPH_MODELS = {
 }
 
 
+django_heroku.settings(locals())
