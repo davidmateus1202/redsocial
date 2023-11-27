@@ -1,5 +1,6 @@
 from django.db import models
 from store.models import Producto
+from django.contrib.auth.models import User
 
 class Cart(models.Model):
 
@@ -10,6 +11,7 @@ class Cart(models.Model):
         return self.cart_id
     
 class CartItem(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, blank=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     cantidad = models.IntegerField()

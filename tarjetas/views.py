@@ -1,6 +1,7 @@
 from audioop import reverse
 from django.shortcuts import render, redirect, get_object_or_404
-from store.models import PerfilVentas, Producto
+from store.models import PerfilVentas, Producto, Pedido
+from store.form import PedidoForm
 from .models import Cart, CartItem
 from django.http import FileResponse
 from django.shortcuts import render
@@ -15,6 +16,7 @@ from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from django.contrib.auth.models import User
 
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_CENTER, TA_RIGHT
 from reportlab.lib.units import inch
@@ -78,6 +80,10 @@ def add_cart(request, producto_id):
 
 
 def cart(request, total=0, cantidad=0, cart_items=None):
+    total = 0
+    cantidad = 0
+    impuesto = 0
+    grand_total = 0
 
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request))
@@ -105,29 +111,7 @@ def cart(request, total=0, cantidad=0, cart_items=None):
     return render(request, 'tarjetas/cart.html', context)
 
 
-def checkout(request, total=0, cantidad=0, cart_items=None):
-    try:
-        cart = Cart.objects.get(cart_id=_cart_id(request))
-        cart_items = CartItem.objects.filter(cart=cart, activo=True)
 
-        for cart_item in cart_items:
-            total += (cart_item.producto.precio * cart_item.cantidad)
-            cantidad += cart_item.cantidad
-        impuesto = (total *0.19)
-
-        grand_total = (total + impuesto)
-    except:
-        pass
-
-    context = {
-
-        'cart_items': cart_items,
-        'total': total,
-        'cantidad': cantidad,
-        'impuesto': impuesto,
-        'grand_total': grand_total,
-    }
-    return render(request, 'tarjetas/checkout.html',context)
 
 class PDFReceiptBuilder:
     def __init__(self, buffer, title, total, impuesto, cantidad, cart_items):
@@ -180,7 +164,6 @@ class PDFReceiptBuilder:
         if self.cart_items:
             for item in self.cart_items:
                 item_info = f"Producto: {item.producto.nombre_producto}, Cantidad: {item.cantidad}"
-
                 item_paragraph = Paragraph(item_info, self.styles["CustomBullet"]) # Agrega la imagen # Agrega espacio entre la imagen y el párrafo
                 self.elements.append(item_paragraph) 
 
@@ -204,7 +187,8 @@ class PDFReceiptBuilder:
 
         doc.build(self.elements)
 
-def generate_pdf_receipt(request, total=0, cantidad=0, cart_items=None):
+def generate_pdf_receipt(request ,total=0, cantidad=0, impuesto=0, grand_total=0, cart_items=None):
+
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request))
         cart_items = CartItem.objects.filter(cart=cart, activo=True)
@@ -223,17 +207,24 @@ def generate_pdf_receipt(request, total=0, cantidad=0, cart_items=None):
                 producto.save()
             else:
                 pass
+
     except:
         pass
 
+    print(total)
+    print(cantidad)
+    print(impuesto)
+    print(grand_total)
+
+
     current_user = request.user
-    perfil_vendedor = PerfilVentas.objects.get(user=current_user)
+   # perfil_vendedor = PerfilVentas.objects.get(user=current_user)
 
     # Crear un buffer en memoria para almacenar el PDF
     buffer = BytesIO()
 
     # Crear un PDFReceiptBuilder y construir el recibo
-    pdf_title = f"Easy Market, Vendedor: {perfil_vendedor.user.username}"
+    pdf_title = f"Easy Market, Vendedor: {current_user}"
     pdf_builder = PDFReceiptBuilder(buffer, pdf_title, grand_total, impuesto, cantidad, cart_items)
     pdf_builder.build_pdf()
 
@@ -249,3 +240,54 @@ def generate_pdf_receipt(request, total=0, cantidad=0, cart_items=None):
     return response
 
 
+def checkout(request, total=0, cantidad=0, cart_items=None):
+    try:
+        cart = Cart.objects.get(cart_id=_cart_id(request))
+        cart_items = CartItem.objects.filter(cart=cart, activo=True)
+
+        for cart_item in cart_items:
+            total += (cart_item.producto.precio * cart_item.cantidad)
+            cantidad += cart_item.cantidad
+
+        impuesto = (total *0.19)
+        grand_total = (total + impuesto)
+
+    except:
+        pass
+    current_user = get_object_or_404(User, pk=request.user.pk)
+
+    if request.method == 'POST':
+        form = PedidoForm(request.POST)
+        if form.is_valid():
+            pedido = form.save(commit=False)
+            pedido.user = current_user
+            pedido.save()  # Guardar el pedido primero
+
+            if cart_items.exists():  # Verificar si hay elementos en el carrito
+                for cart_item in cart_items:
+                    # Agregar cada producto del carrito al pedido
+                    pedido.producto.add(cart_item.producto)
+
+            else:
+                # Lógica para manejar el carrito vacío si es necesario
+                pass
+            return redirect('generar_pdf_recibo')
+               
+    else:
+        form = PedidoForm()
+
+
+
+
+    context = {
+        'form': form,
+        'cart_items': cart_items,
+        'total': total,
+        'cantidad': cantidad,
+        'impuesto': impuesto,
+        'grand_total': grand_total,
+    }
+    return render(request, 'tarjetas/checkout.html',context)
+
+
+    

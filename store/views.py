@@ -6,6 +6,8 @@ from .form import ProductoForm, PerfilVentaForm
 from django.contrib.auth.models import User
 from tarjetas.models import CartItem
 from tarjetas.views import _cart_id
+from comentario_market.models import Comentarios_marcketplace
+from comentario_market.form import ComentarioMarketForm
 
 def store(request, categoria_nombre_categoria=None):
     cart_items = CartItem.objects.all()
@@ -35,7 +37,23 @@ def detalle_producto(request, categoria_nombre_categoria=None, nombre_producto=N
         in_cart = CartItem.objects.filter(cart__cart_id = _cart_id(request), producto = producto).exists()
     except Exception as e:
         raise e
+    
+    comentarios = Comentarios_marcketplace.objects.filter(producto=products)
+    
+    if request.method == 'POST':
+        form = ComentarioMarketForm(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.user = request.user
+            comentario.producto = products
+            comentario.save()
+            return redirect('detalle_producto', categoria_nombre_categoria=categoria_nombre_categoria, nombre_producto=nombre_producto)
+    else:
+        form = ComentarioMarketForm()
+
     content = {
+        'form': form,
+        'comentarios': comentarios,
         'products': products,
         'in_cart': in_cart,
     } 
@@ -105,3 +123,20 @@ def editar_perfil(request):
         
     }
     return render(request, 'store/editar_perfil.html', context)
+
+
+def buscar(request):
+    products = []
+    numero_productos = 0
+    keyword = request.GET.get('keyword')
+
+    if keyword:
+        products = Producto.objects.filter(nombre_producto__icontains=keyword).order_by('-created_date')
+        numero_productos = products.count()
+
+    content = {
+        'products': products,
+        'numero_productos': numero_productos,
+    }
+
+    return render(request, 'store/store.html', content)

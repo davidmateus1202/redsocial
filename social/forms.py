@@ -2,8 +2,11 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from spanlp.palabrota import Palabrota
+from spanlp.domain.countries import Country
+from spanlp.domain.strategies import CosineSimilarity
+from spanlp.domain.strategies import JaccardIndex
+
 from .models import *
-PALABRAS_PROHIBIDAS = ["mierda", "chet", "hp","gg","ez","nigga"]
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(label='', widget=forms.TextInput(attrs={
         'class':'form-control',
@@ -108,11 +111,15 @@ class StoryForm(forms.ModelForm):
 
 
 def analisis(text):
+
+    jaccard = JaccardIndex(threshold=0.9, normalize=False, n_gram=3)
     # Crea una instancia del validador de palabras ofensivas
-    validador = Palabrota(censor_char='#')
+    validador = Palabrota(censor_char='#',countries=[Country.COLOMBIA, Country.VENEZUELA , Country.CHILE],distance_metric=jaccard)
     
     # Utiliza el validador para censurar palabras ofensivas en el texto
     texto_censurado = validador.censor(text)
     
     # Devuelve el texto censurado
     return texto_censurado
+
+

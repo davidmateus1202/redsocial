@@ -33,7 +33,8 @@
                     
                     <ul class="list-menu">
                         {% for categoria in links %}
-                            <li><a href="{{ categoria.get_url }}">{{ categoria.nombre_categoria }}</a></li>
+                            <li><a href="{{ categoria.get_url }}" style="font-size: 14px;">{{ categoria.nombre_categoria }}</a></li>
+                            <hr>
                         {% endfor %}
                     </ul>
     
@@ -44,30 +45,19 @@
             <header class="card-header">
                 <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
                     <i class="icon-control fa fa-chevron-down"></i>
-                    <h6 class="title">Sizes </h6>
+                    <h6 class="title">Stock</h6>
                 </a>
             </header>
             <div class="filter-content collapse show" id="collapse_4" style="">
                 <div class="card-body">
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> XS </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> SM </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> LG </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> XXL </span>
-                  </label>
+                    <ul class="list-menu">
+                        {% for product in products %}
+                            {% if product.stock > 0 %}
+                                <li><a href="{{ product.get_url }}" style="font-size: 12px;">{{ product.nombre_producto }} - <small style="color: #0d6efd;">({{ product.stock }})</small></a></li>
+                                <hr>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
             </div><!-- card-body.// -->
             </div>
         </article> <!-- filter-group .// -->

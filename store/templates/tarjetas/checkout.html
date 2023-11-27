@@ -13,60 +13,56 @@
       <div class="card">
         <div class="card-body">
 
-          <h4 class="card-title mb-4">Billing Address</h4>
-          <form action="">
+          <h4 class="card-title mb-4">Informacion Personal</h4>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="form-row">
               <div class="col form-group">
-                <label for="">First Name</label>
-                <input type="text" name="first_name" class="form-control" required>
+                <label for="">Nombre</label>
+                {{ form.first_name }}
               </div>
               <div class="col form-group">
-                <label for="">Last Name</label>
-                <input type="text" name="last_name" class="form-control" required>
+                <label for="">Apellido</label>
+                {{ form.last_name }}
               </div>
             </div>
             <div class="form-row">
               <div class="col form-group">
                 <label for="">Email</label>
-                <input type="email" name="email" class="form-control" required>
+                  {{ form.email }}
               </div>
               <div class="col form-group">
-                <label for="">Phone Number</label>
-                <input type="text" name="phone" class="form-control" required>
+                <label for="">Numero de Telefono</label>
+                {{ form.telefono }}
               </div>
             </div>
             <div class="form-row">
               <div class="col form-group">
-                <label for="">Address line 1</label>
-                <input type="text" name="address_line_1" class="form-control" required>
-              </div>
-              <div class="col form-group">
-                <label for="">Address line 2</label>
-                <input type="text" name="address_line_2" class="form-control" required>
+                <label for="">Direccion</label>
+                {{ form.direccion }}
               </div>
             </div>
             <div class="form-row">
               <div class="col form-group">
-                <label for="">City</label>
-                <input type="text" name="City" class="form-control" required>
+                <label for="">Ciudad</label>
+                {{ form.ciudad }}
               </div>
               <div class="col form-group">
-                <label for="">State</label>
-                <input type="text" name="State" class="form-control" required>
+                <label for="">Departamento</label>
+                {{ form.departamento }}
               </div>
-            
-           
               <div class="col form-group">
-                <label for="">Country</label>
-                <input type="text" name="country" class="form-control" required>
+                <label for="">Pais</label>
+                {{ form.pais }}
               </div>
             </div>
             <div class="form-row">
-              <div class="col form-group">
-                <label for="">Order Note</label>
-                <textarea name="order_note" rows="2" class="form-control"></textarea>
+              <div class="col form-group" >
+                <label for="">Observaciones</label>
+                {{ form.comentario }}
               </div>
             </div>
+            <button class="btn-primary btn-block" type="submit" style="padding: 8px; border: none; border-radius: 8px;">Guardar Informacion</button>
           </form>
 
         </div>
@@ -101,7 +97,6 @@
                     <div class="aside"><img src="{{ cart_item.producto.product_image.url }}" class="img-sm"></div>
                     <figcaption class="info">
                         <a href="{{ cart_item.producto.get_url }}" class="title text-dark">{{ cart_item.producto.nombre_producto }}</a>
-                        <p class="text-muted small">Matrix: 25 Mpx <br> Brand: Canon</p>
                     </figcaption>
                 </figure>
             </td>
@@ -125,9 +120,7 @@
         <aside class="col-lg-9">
     
             <div class="card">
-
-            <div class="card-body">
-                <button type="submit" name="submit" href="{% url 'generar_pdf_recibo' %}" class="btn btn-primary btn-block" >Place order</button>
+            <div  class="card-body">
                 <a href="{% url 'store' %}" class="btn btn-light btn-block">Continuar comprando</a>
             </div> <!-- card-body.// -->
             </div> <!-- card.// -->

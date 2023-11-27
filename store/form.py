@@ -1,6 +1,6 @@
 from django import forms
 from  categoria.models import Categoria
-from .models import Producto, PerfilVentas
+from .models import Producto, PerfilVentas, Pedido
 
 
 class ProductoForm(forms.ModelForm):
@@ -94,6 +94,75 @@ class PerfilVentaForm(forms.ModelForm):
         model = PerfilVentas
         fields = ['nombre_vendedor', 'descripcion_venta', 'biografia_venta']
 
+class PedidoForm(forms.ModelForm):
+
+    first_name = forms.CharField(label='', widget=forms.TextInput(attrs={
+
+        'class': 'form-control',
+        'id':'floatingInput_first_name',
+        'type':'text',
+
+    }), required=True)
+
+    last_name = forms.CharField(label='', widget=forms.TextInput(attrs={
+
+        'class': 'form-control',
+        'id':'floatingInput_last_name',
+        'type':'text',
+
+    }), required=True)
+
+    email = forms.EmailField(label='', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id':'floatingInput_email',
+        'type':'email',
+
+    }), required=True)
+
+    telefono = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id':'floatingInput_telefono',
+        'type':'text',
+
+    }), required=True)
+
+    direccion = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id':'floatingInput_direccion',
+        'type':'text',
+
+    }), required=True)
+
+    ciudad = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id':'floatingInput_ciudad',
+        'type':'text',
+
+    }), required=True)
+
+    departamento = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id':'floatingInput_departamento',
+        'type':'text',
+
+    }), required=True)
+
+    pais = forms.CharField(label='', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id':'floatingInput_pais',
+        'type':'text',
+
+    }), required=True)
+
+    comentario = forms.CharField(label='', widget=forms.Textarea(attrs={
+
+        'class': 'form-control',
+        'id':'floatingarea_comentario',
+        'type':'text',
+    }), required=True)
 
 
+    class Meta: 
 
+        model = Pedido
+        fields = ['first_name', 'last_name', 'email', 'telefono', 'direccion', 'ciudad', 'departamento', 'pais', 'comentario']
